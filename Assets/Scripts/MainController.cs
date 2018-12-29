@@ -14,6 +14,7 @@ public class MainController : MonoBehaviour
     [SerializeField] AudioSource beatGeneratorAudioSource;
     [SerializeField] AudioSource listenAudioSource;
     [SerializeField] List<Sprite> boxes;
+    public AudioClip activeMusic;
     public float platformDropTimer = 0.2f;
     public float beatTimeDifference = 2f;
     public float holeSize = 1.5f;
@@ -39,6 +40,10 @@ public class MainController : MonoBehaviour
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
 
+        activeMusic = FindObjectOfType<Selection>().selectedMusic;
+
+        beatGeneratorAudioSource.clip = activeMusic;
+        listenAudioSource.clip = activeMusic;
         beatGeneratorAudioSource.Play();
         listenAudioSource.PlayDelayed(beatTimeDifference);
 	}
@@ -141,8 +146,8 @@ public class MainController : MonoBehaviour
 		}
 	}
 
-    public void Reset()
+    public void Menu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Selection");
     }
 }

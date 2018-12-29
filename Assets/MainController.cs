@@ -82,7 +82,7 @@ public class MainController : MonoBehaviour
 
             //Debug.Log("Beat!!!");
             GameObject spawnedBox = Instantiate(box);
-            spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1f, 1.5f) : -Random.Range(1f, 2f), 7.4f);
+            spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 1.5f) : -Random.Range(1.1f, 2f), 7.4f);
             spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
             spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count - 1)];
             Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));

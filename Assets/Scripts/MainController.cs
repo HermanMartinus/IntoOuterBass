@@ -20,7 +20,6 @@ public class MainController : MonoBehaviour
     public Vector2 holeSizeRange = new Vector2(1.3f, 0.7f);
     float holeSize = 1.5f;
     bool altenator = false;
-    bool jumpAltenator = true;
     public float cooldownTime = 0.5f;
     public float boxSpeed = 1f;
     bool canSpawn = true;

@@ -14,7 +14,7 @@ public class BaseShip : MonoBehaviour {
     float timeToReachTarget;
     public float yPosition = -3;
     public float lanePositionX = 2f;
-    bool spinning = false;
+    public bool spinning = false;
     bool jumping = false;
     public float rotateSpeed = 500f;
 

@@ -81,6 +81,7 @@ public class MainController : MonoBehaviour
             DestroyAll(GameObject.FindGameObjectsWithTag("Box"), -10);
         }
 
+
         DificultyIncreaser();
     }
 
@@ -111,6 +112,7 @@ public class MainController : MonoBehaviour
             Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
 
             spawnedBox.GetComponent<Rigidbody2D>().AddTorque(direction.x * 1);
+
 
             RemovePlatform(new Vector2(0, 7f));
 
@@ -155,7 +157,8 @@ public class MainController : MonoBehaviour
         float timeLeft = clipLength - (Time.time - startTime);
         float percentageCompleted = Mathf.Abs(((timeLeft / clipLength)-1));
 
-
+        if(!beater.GetComponent<BaseShip>().spinning)
+            Time.timeScale = 1 + percentageCompleted;
 
         holeSize = holeSizeRange.x - percentageCompleted*(holeSizeRange.x - holeSizeRange.y);
     }
@@ -175,7 +178,8 @@ public class MainController : MonoBehaviour
 
     public void Menu()
     {
-        FindObjectOfType<LoadedClips>().clips.Clear();
+        if(FindObjectOfType<LoadedClips>())
+            FindObjectOfType<LoadedClips>().clips.Clear();
         SceneManager.LoadScene("Selection");
     }
 }

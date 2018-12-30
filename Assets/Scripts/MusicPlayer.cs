@@ -28,31 +28,15 @@ using UnityEngine.UI;
          if (source == null) source = gameObject.AddComponent<AudioSource>();
  
          ReloadSounds();
+
+
      }
- 
+
     public void CheckPath()
     {
         absolutePath = filePath.text;
         ReloadSounds();
     }
-
-    //void OnGUI()
-    //{
-    //    if (GUILayout.Button("Previous")) {
-    //        Seek(SeekDirection.Backward);
-    //        PlayCurrent();
-    //    }
-    //    if (GUILayout.Button("Play current")) {
-    //        PlayCurrent();
-    //    }
-    //    if (GUILayout.Button("Next")) {
-    //        Seek(SeekDirection.Forward);
-    //        PlayCurrent();
-    //    }
-    //    if (GUILayout.Button("Reload")) {
-    //        ReloadSounds();
-    //    }
-    //}
 
     void Seek(SeekDirection d)
      {

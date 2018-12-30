@@ -175,6 +175,7 @@ public class MainController : MonoBehaviour
 
     public void Menu()
     {
+        FindObjectOfType<LoadedClips>().clips.Clear();
         SceneManager.LoadScene("Selection");
     }
 }

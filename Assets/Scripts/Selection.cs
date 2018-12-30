@@ -31,8 +31,6 @@ public class Selection : MonoBehaviour {
 
     public void SetTrack()
     {
-        //selectedMusic = FindObjectOfType<MusicPlayer>().clips[0];
-        //FindObjectOfType<MusicPlayer>().enabled = false;
         SceneManager.LoadScene("Main");
     }
 

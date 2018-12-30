@@ -18,7 +18,6 @@ public class BaseShip : MonoBehaviour {
     bool jumping = false;
     public float rotateSpeed = 500f;
 
-    public float leTimeScale = 1;
 
     public OnJumpEventHandler onJump;
     [System.Serializable]
@@ -148,10 +147,10 @@ public class BaseShip : MonoBehaviour {
     IEnumerator ResetTime()
     {
         yield return new WaitForSeconds(0.5f);
-        Time.timeScale = leTimeScale;
+        FindObjectOfType<MainController>().ResetDifficulty();
         foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
         {
-            audioSource.pitch = leTimeScale;
+            audioSource.pitch = 1;
         }
         spinning = false;
     }

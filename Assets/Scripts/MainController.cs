@@ -158,11 +158,15 @@ public class MainController : MonoBehaviour
         float percentageCompleted = Mathf.Abs(((timeLeft / clipLength)-1));
 
         if(!beater.GetComponent<BaseShip>().spinning)
-            Time.timeScale = 1 + percentageCompleted;
+            Time.timeScale = 1 + (percentageCompleted/2);
 
         holeSize = holeSizeRange.x - percentageCompleted*(holeSizeRange.x - holeSizeRange.y);
     }
 
+    public void ResetDifficulty()
+    {
+        startTime = Time.time;
+    }
     //This event will be called every frame while music is playing
     public void onSpectrum (float[] spectrum)
 	{

@@ -11,30 +11,28 @@ public class Selection : MonoBehaviour {
     [SerializeField] Transform grid;
     public AudioClip selectedMusic;
 
-    private void Awake()
+    public void GenerateList(List<Music> tracks)
     {
-        Selection[] objs = FindObjectsOfType<Selection>();
 
-        if (objs.Length > 1)
-        {
-            Destroy(this.gameObject);
-        }
-
-        DontDestroyOnLoad(this.gameObject);
-
-        resourceAudioClips = Resources.LoadAll<AudioClip>("Music");
-        foreach (AudioClip clip in resourceAudioClips)
+        foreach (Music track in tracks)
         {
             GameObject spawnedButton = Instantiate(button, grid);
-            spawnedButton.GetComponentInChildren<Text>().text = clip.name;
-            spawnedButton.GetComponent<Button>().onClick.AddListener(delegate { SetTrack(clip); });
+            spawnedButton.GetComponentInChildren<Text>().text = track.name;
+            spawnedButton.GetComponent<Button>().onClick.AddListener(delegate { AddTrack(track.url); });
         }
     }
 
-    public void SetTrack(AudioClip clip)
+    public void AddTrack(string url)
     {
-        grid.gameObject.SetActive(false);
-        selectedMusic = clip;
+        Debug.Log(url);
+
+        FindObjectOfType<MusicPlayer>().LoadThatFile(url);
+    }
+
+    public void SetTrack()
+    {
+        //selectedMusic = FindObjectOfType<MusicPlayer>().clips[0];
+        //FindObjectOfType<MusicPlayer>().enabled = false;
         SceneManager.LoadScene("Main");
     }
 
@@ -59,4 +57,16 @@ public class Selection : MonoBehaviour {
             grid.gameObject.SetActive(true);
         }
     }
+}
+
+public struct Music
+{
+    public Music(string _name, string _url)
+    {
+        name = _name;
+        url = _url;
+    }
+
+    public string name { get; private set; }
+    public string url { get; private set; }
 }

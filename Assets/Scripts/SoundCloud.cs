@@ -4,6 +4,7 @@ using System.Collections;
 public class SoundCloud : MonoBehaviour
 {
     private AudioSource _audiopoint;
+    public string musicUrl;
     private WWW _www;
 
     void Start()
@@ -14,8 +15,9 @@ public class SoundCloud : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(DownloadAndPlay("https://soundcloud.com/user-107006161/dc-rpg-the-hero-points-podcast-episode-1/download.mp3"));
-            //StartCoroutine(DownloadAndPlay("file:///" + Application.dataPath + "/UserSounds/" + "/my.ogg"));
+            //StartCoroutine(DownloadAndPlay(musicUrl));
+            Debug.Log(Application.dataPath);
+            StartCoroutine(DownloadAndPlay("file:////Users/herman/Downloads/01. Low (Dirty).mp3"));
         }
     }
     IEnumerator DownloadAndPlay(string url)

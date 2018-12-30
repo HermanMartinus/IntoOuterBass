@@ -35,19 +35,23 @@ public class MainController : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        if (FindObjectOfType<LoadedClips>())
+        {
+            activeMusic = FindObjectOfType<LoadedClips>().clips[0];
+        }
+
+        beatGeneratorAudioSource.clip = activeMusic;
+        listenAudioSource.clip = activeMusic;
+    }
+
     void Start ()
 	{
 		AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
 
-        if (FindObjectOfType<Selection>())
-        {
-            activeMusic = FindObjectOfType<Selection>().selectedMusic;
-        }
-
-        beatGeneratorAudioSource.clip = activeMusic;
-        listenAudioSource.clip = activeMusic;
         beatGeneratorAudioSource.Play();
         listenAudioSource.PlayDelayed(beatTimeDifference);
 

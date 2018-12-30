@@ -17,12 +17,15 @@ public class MainController : MonoBehaviour
     public AudioClip activeMusic;
     public float platformDropTimer = 0.2f;
     public float beatTimeDifference = 2f;
-    public float holeSize = 1.5f;
+    public Vector2 holeSizeRange = new Vector2(1.3f, 0.7f);
+    float holeSize = 1.5f;
     bool altenator = false;
     bool jumpAltenator = true;
     public float cooldownTime = 0.5f;
     public float boxSpeed = 1f;
     bool canSpawn = true;
+    float clipLength;
+    float startTime;
 
     [Header("Events")]
     public OnJumpBeatEventHandler onJumpBeat;
@@ -34,19 +37,28 @@ public class MainController : MonoBehaviour
 
     void Start ()
 	{
-		//Select the instance of AudioProcessor and pass a reference
-		//to this object
 		AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
 
-        activeMusic = FindObjectOfType<Selection>().selectedMusic;
+        if (FindObjectOfType<Selection>())
+        {
+            activeMusic = FindObjectOfType<Selection>().selectedMusic;
+        }
 
         beatGeneratorAudioSource.clip = activeMusic;
         listenAudioSource.clip = activeMusic;
         beatGeneratorAudioSource.Play();
         listenAudioSource.PlayDelayed(beatTimeDifference);
+
+        startTime = Time.time;
+        clipLength = activeMusic.length;
 	}
+
+    private void FixedUpdate()
+    {
+        cooldownTime -= 0.00001f;
+    }
 
     private void Update()
     {
@@ -65,6 +77,8 @@ public class MainController : MonoBehaviour
             DestroyAll(GameObject.FindGameObjectsWithTag("Platform"), -10);
             DestroyAll(GameObject.FindGameObjectsWithTag("Box"), -10);
         }
+
+        DificultyIncreaser();
     }
 
     void DestroyAll(GameObject [] objects, float yThreshold)
@@ -88,7 +102,7 @@ public class MainController : MonoBehaviour
 
             //Debug.Log("Beat!!!");
             GameObject spawnedBox = Instantiate(box);
-            spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 1.5f) : -Random.Range(1.1f, 2f), 7.4f);
+            spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 2f) : -Random.Range(1.1f, 2f), 7.4f);
             spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
             spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count - 1)];
             Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
@@ -132,6 +146,16 @@ public class MainController : MonoBehaviour
         onJumpBeat.Invoke();
     }
 
+
+    void DificultyIncreaser()
+    {
+        float timeLeft = clipLength - (Time.time - startTime);
+        float percentageCompleted = Mathf.Abs(((timeLeft / clipLength)-1));
+
+
+
+        holeSize = holeSizeRange.x - percentageCompleted*(holeSizeRange.x - holeSizeRange.y);
+    }
 
     //This event will be called every frame while music is playing
     public void onSpectrum (float[] spectrum)

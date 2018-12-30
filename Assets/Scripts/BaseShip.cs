@@ -13,9 +13,26 @@ public class BaseShip : MonoBehaviour {
     Vector3 target;
     float timeToReachTarget;
     public float yPosition = -3;
+    public float lanePositionX = 2f;
     bool spinning = false;
     bool jumping = false;
     public float rotateSpeed = 500f;
+
+    public float leTimeScale = 1;
+
+    public OnJumpEventHandler onJump;
+    [System.Serializable]
+    public class OnJumpEventHandler : UnityEngine.Events.UnityEvent
+    {
+
+    }
+
+    public OnFailEventHandler onFail;
+    [System.Serializable]
+    public class OnFailEventHandler : UnityEngine.Events.UnityEvent
+    {
+
+    }
 
     // Use this for initialization
     void Start ()
@@ -24,15 +41,12 @@ public class BaseShip : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+
     void Update () {
 
-       
-        if (Input.GetMouseButtonDown(0))
-        {
-            Jump();
 
-        }
+        InputManager();
+
         t += Time.deltaTime / timeToReachTarget;
         transform.position = Vector3.Lerp(startPosition, target, Easing.Quintic.Out(t));
 
@@ -44,7 +58,7 @@ public class BaseShip : MonoBehaviour {
         {
             if (jumping)
             {
-                RotateShip(altenator ? -20 * Easing.Quadratic.In(Time.deltaTime*50) : 20 * Easing.Quadratic.In(Time.deltaTime*50));
+                RotateShip(altenator ? -20 * Easing.Quintic.In(Time.deltaTime*50) : 20 * Easing.Quintic.In(Time.deltaTime*50));
             }
             else
             {
@@ -52,6 +66,30 @@ public class BaseShip : MonoBehaviour {
             }
         }
         
+    }
+
+    void InputManager()
+    {
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Input.mousePosition.x < Screen.width / 4)
+            {
+                Jump(new Vector2(-2.5f, yPosition), jumpTime);
+                altenator = false;
+            }
+            else if (Input.mousePosition.x > (Screen.width / 4)*3)
+            {
+                Jump(new Vector2(2.5f, yPosition), jumpTime);
+                altenator = true;
+            }
+            else
+            {
+                Jump(new Vector2(altenator ? -lanePositionX : lanePositionX, yPosition), jumpTime);
+                altenator = !altenator;
+            }
+
+        }
     }
 
     void RotateShip (float degrees)
@@ -69,24 +107,26 @@ public class BaseShip : MonoBehaviour {
         }
         if (testing)
         {
-            Jump();
+            Jump(new Vector2(altenator ? -lanePositionX : lanePositionX, yPosition) , jumpTime);
+            altenator = !altenator;
         }
     }
 
-    void Jump()
+    public void Jump(Vector2 _target, float _jumpTime)
     {
         t = 0;
         startPosition = transform.position;
-        timeToReachTarget = jumpTime;
-        target = new Vector2(altenator ? -1 : 1, yPosition);
-        altenator = !altenator;
+        timeToReachTarget = _jumpTime;
+        target = _target;
         jumping = true;
-        StartCoroutine("EndJump");
+        StartCoroutine("EndJump", _jumpTime);
+        onJump.Invoke();
     }
 
-    IEnumerator EndJump()
+
+    IEnumerator EndJump(float _jumpTime)
     {
-        yield return new WaitForSeconds(jumpTime);
+        yield return new WaitForSeconds(_jumpTime);
         jumping = false;
     }
 
@@ -100,7 +140,7 @@ public class BaseShip : MonoBehaviour {
             {
                 audioSource.pitch = 0.5f;
             }
-
+            onFail.Invoke();
             spinning = true;
         }
     }
@@ -108,10 +148,10 @@ public class BaseShip : MonoBehaviour {
     IEnumerator ResetTime()
     {
         yield return new WaitForSeconds(0.5f);
-        Time.timeScale = 1;
+        Time.timeScale = leTimeScale;
         foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
         {
-            audioSource.pitch = 1f;
+            audioSource.pitch = leTimeScale;
         }
         spinning = false;
     }

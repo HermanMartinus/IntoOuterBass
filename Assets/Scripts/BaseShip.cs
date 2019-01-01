@@ -17,6 +17,13 @@ public class BaseShip : MonoBehaviour {
     public bool spinning = false;
     bool jumping = false;
     public float rotateSpeed = 500f;
+    [SerializeField] GameObject shield;
+    bool shieldUp = false;
+    float lastHitTime = 0f;
+    public float shieldCooldown = 30f;
+    float shieldTime = 0f;
+    public List<float> speedSteps = new List<float>();
+    [SerializeField] GameObject explosion;
 
 
     public OnJumpEventHandler onJump;
@@ -38,9 +45,10 @@ public class BaseShip : MonoBehaviour {
     {
         FindObjectOfType<MainController>().onJumpBeat.AddListener(Beat);
         rb = GetComponent<Rigidbody2D>();
+        lastHitTime = Time.time;
     }
 
-
+    int level = 0;
     void Update () {
 
 
@@ -55,16 +63,68 @@ public class BaseShip : MonoBehaviour {
         }
         else
         {
-            if (jumping)
+            RotateShip(0);
+        }
+
+        shield.SetActive(shieldUp);
+
+        if(Time.time - shieldTime > shieldCooldown)
+        {
+            shieldUp = true;
+            shieldTime = Time.time;
+        }
+
+        Leveling();
+
+    }
+
+    void Leveling()
+    {
+        float timeSinceLastHit = Time.time - lastHitTime;
+
+
+        if (timeSinceLastHit > speedSteps[5])
+        {
+            if (level != 5)
             {
-                RotateShip(altenator ? -20 * Easing.Quintic.In(Time.deltaTime*50) : 20 * Easing.Quintic.In(Time.deltaTime*50));
-            }
-            else
-            {
-                RotateShip(0);
+                level = 5;
             }
         }
-        
+        else if (timeSinceLastHit > speedSteps[4])
+        {
+            if (level != 4)
+            {
+                level = 4;
+            }
+        }
+        else if (timeSinceLastHit > speedSteps[3])
+        {
+            if (level != 3)
+            {
+                level = 3;
+            }
+        }
+        else if (timeSinceLastHit > speedSteps[2])
+        {
+            if (level != 2)
+            {
+                level = 2;
+            }
+        }
+        else if (timeSinceLastHit > speedSteps[1])
+        {
+            if (level != 1)
+            {
+                level = 1;
+            }
+        }
+        else
+        {
+            if (level != 0)
+            {
+                level = 0;
+            }
+        }
     }
 
     void InputManager()
@@ -72,21 +132,21 @@ public class BaseShip : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (Input.mousePosition.x < Screen.width / 4)
-            {
-                Jump(new Vector2(-2.5f, yPosition), jumpTime);
-                altenator = false;
-            }
-            else if (Input.mousePosition.x > (Screen.width / 4)*3)
-            {
-                Jump(new Vector2(2.5f, yPosition), jumpTime);
-                altenator = true;
-            }
-            else
-            {
+            //if (Input.mousePosition.x < Screen.width / 4)
+            //{
+            //    Jump(new Vector2(-2.5f, yPosition), jumpTime);
+            //    altenator = false;
+            //}
+            //else if (Input.mousePosition.x > (Screen.width / 4)*3)
+            //{
+            //    Jump(new Vector2(2.5f, yPosition), jumpTime);
+            //    altenator = true;
+            //}
+            //else
+            //{
                 Jump(new Vector2(altenator ? -lanePositionX : lanePositionX, yPosition), jumpTime);
                 altenator = !altenator;
-            }
+            //}
 
         }
     }
@@ -133,15 +193,35 @@ public class BaseShip : MonoBehaviour {
     {
         if (Time.timeScale > 0.09f)
         {
-            Time.timeScale = 0.5f;
-            StartCoroutine("ResetTime");
-            foreach(AudioSource audioSource in FindObjectsOfType<AudioSource>())
+            if(shieldUp)
             {
-                audioSource.pitch = 0.5f;
+                Instantiate(explosion, collision.transform);
+                collision.GetComponent<SpriteRenderer>().enabled = false;
+                collision.GetComponent<Collider2D>().enabled = false;
+                shieldUp = false;
             }
-            onFail.Invoke();
-            spinning = true;
+            else
+            {
+                Time.timeScale = 0.5f;
+                StartCoroutine("ResetTime");
+                lastHitTime = Time.time;
+                foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
+                {
+                    audioSource.pitch = 0.5f;
+                }
+                onFail.Invoke();
+                spinning = true;
+            }
+            shieldTime = Time.time;
+            StartCoroutine("ReneableCollider");
         }
+    }
+
+    IEnumerator ReneableCollider()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<Collider2D>().enabled = true;
     }
 
     IEnumerator ResetTime()

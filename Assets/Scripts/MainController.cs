@@ -58,11 +58,6 @@ public class MainController : MonoBehaviour
         clipLength = activeMusic.length;
 	}
 
-    private void FixedUpdate()
-    {
-        cooldownTime -= 0.00001f;
-    }
-
     private void Update()
     {
         platformDropTimer -= Time.deltaTime;
@@ -108,7 +103,7 @@ public class MainController : MonoBehaviour
             GameObject spawnedBox = Instantiate(box);
             spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 2f) : -Random.Range(1.1f, 2f), 7.4f);
             spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
-            spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count - 1)];
+            spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count)];
             Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
 
             spawnedBox.GetComponent<Rigidbody2D>().AddTorque(direction.x * 1);
@@ -158,7 +153,7 @@ public class MainController : MonoBehaviour
         float percentageCompleted = Mathf.Abs(((timeLeft / clipLength)-1));
 
         if(!beater.GetComponent<BaseShip>().spinning)
-            Time.timeScale = 1 + (percentageCompleted/2);
+            Time.timeScale = 1 + (percentageCompleted*0.8f);
 
         holeSize = holeSizeRange.x - percentageCompleted*(holeSizeRange.x - holeSizeRange.y);
     }

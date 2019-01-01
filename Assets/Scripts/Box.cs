@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Box : MonoBehaviour {
 
+    [SerializeField] GameObject explosion;
+
 	// Use this for initialization
 	void Start () {
 
@@ -16,4 +18,5 @@ public class Box : MonoBehaviour {
             transform.localScale *= 0.98f;
         }
     }
+
 }

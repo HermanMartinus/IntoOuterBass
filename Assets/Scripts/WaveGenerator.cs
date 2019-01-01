@@ -11,8 +11,7 @@ public class WaveGenerator : MonoBehaviour
     AudioSource _audioSource;
     const int SpectrumSize = 8192;
     readonly float[] _spectrum = new float[SpectrumSize];
-    public LineRenderer _topLine;
-    public LineRenderer _bottomLine;
+    [SerializeField] List<LineRenderer> lines;
 
     public void Start()
     {
@@ -38,9 +37,8 @@ public class WaveGenerator : MonoBehaviour
                 b = 0;
             }
         }
-
-        SetLinePoints(viewSpectrum, _topLine);
-        SetLinePoints(viewSpectrum, _bottomLine, -1);
+        foreach(LineRenderer line in lines)
+            SetLinePoints(viewSpectrum, line);
     }
 
     private void SetLinePoints(List<float> viewSpectrum, LineRenderer lineRenderer, float modifier = 1)

@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
- using System.Collections;
- using System.Collections.Generic;
-
- using System.IO;
- using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine.UI;
+using System;
 
- 
- public class MusicPlayer : MonoBehaviour
+
+
+public class MusicPlayer : MonoBehaviour
  {
      public enum SeekDirection { Forward, Backward }
  
@@ -29,36 +30,19 @@ using UnityEngine.UI;
  
          if (source == null) source = gameObject.AddComponent<AudioSource>();
  
-         ReloadSounds();
-
-        GetCurDirFolders();
+         GetFiles("/storage/emulated/0/");
      }
-
-    string _curPath;
-    List<string> _curDirectoryFolderPaths = new List<string>();
-
-    void GetCurDirFolders()
-    {
-        _curPath = Directory.GetDirectoryRoot("/");
-        foreach (string folderPath in Directory.GetDirectories(_curPath))
-        {
-            try
-            {
-                _curDirectoryFolderPaths.Add(folderPath);
-                Debug.Log(folderPath);
-            }
-            catch (System.Exception error)
-            {
-                Debug.Log(error);
-            }
-        }
-        Debug.Log("Found " + _curDirectoryFolderPaths.Count.ToString() + " Folder(s) in this Directory ");
-    }
 
     public void CheckPath()
     {
-        absolutePath = filePath.text;
-        ReloadSounds();
+        //List<string> files = GetFiles("/");
+        //foreach (string file in files)
+        //{
+        //    Debug.Log(file);
+        //}
+        //absolutePath = filePath.text;
+        //ReloadSounds();
+        GetFiles("/storage/emulated/0/");
     }
 
     void Seek(SeekDirection d)
@@ -77,33 +61,67 @@ using UnityEngine.UI;
          source.Play();
      }
  
-     void ReloadSounds()
-     {
-         clips.Clear();
-         // get all valid files
-         var info = new DirectoryInfo(absolutePath);
-         soundFiles = info.GetFiles()
-             .Where(f => IsValidFileType(f.Name))
-             .ToArray();
+    // void ReloadSounds()
+    // {
+    //     clips.Clear();
+    //     // get all valid files
+    //     var info = new DirectoryInfo(absolutePath);
+    //     soundFiles = info.GetFiles()
+    //         .Where(f => IsValidFileType(f.Name))
+    //         .ToArray();
 
-        List<Music> tracks = new List<Music>();
+    //    List<Music> tracks = new List<Music>();
 
-         // and load them
-         foreach (var s in soundFiles)
+    //     // and load them
+    //     foreach (var s in soundFiles)
+    //    {
+    //        tracks.Add(new Music(s.Name, s.FullName));
+    //    }
+
+    //    FindObjectOfType<Selection>().GenerateList(tracks);
+    //    //StartCoroutine(LoadFile(s.FullName));
+    //}
+ 
+     //bool IsValidFileType(string fileName)
+     //{
+     //    return validExtensions.Contains(Path.GetExtension(fileName));
+     //    // Alternatively, you could go fileName.SubString(fileName.LastIndexOf('.') + 1); that way you don't need the '.' when you add your extensions
+     //}
+
+
+    public List<Music> GetFiles(string path)
+    {
+        Debug.Log("Getting files");
+        List<string> fileList = new List<string>();
+
+        try
         {
-            tracks.Add(new Music(s.Name, s.FullName));
+            //string path = Application.dataPath;
+
+            IEnumerable<string> files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
+                .Where(s => s.EndsWith(".mp3") || s.EndsWith(".wav") || s.EndsWith(".aif") || s.EndsWith(".ogg"));
+
+            List<Music> tracks = new List<Music>();
+            foreach (string f in files)
+            {
+                tracks.Add(new Music(f, f));
+                Debug.Log(f);
+            }
+            FindObjectOfType<Selection>().GenerateList(tracks);
+            return tracks;
+        }
+        catch (UnauthorizedAccessException UAEx)
+        {
+            Console.WriteLine(UAEx.Message);
+        }
+        catch (PathTooLongException PathEx)
+        {
+            Console.WriteLine(PathEx.Message);
         }
 
-        FindObjectOfType<Selection>().GenerateList(tracks);
-        //StartCoroutine(LoadFile(s.FullName));
+        return null;
     }
- 
-     bool IsValidFileType(string fileName)
-     {
-         return validExtensions.Contains(Path.GetExtension(fileName));
-         // Alternatively, you could go fileName.SubString(fileName.LastIndexOf('.') + 1); that way you don't need the '.' when you add your extensions
-     }
- 
+
     public void LoadThatFile(string path)
     {
         Debug.Log(path);

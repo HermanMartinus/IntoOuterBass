@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using System.IO;
+using System.Linq;
 
 public class Selection : MonoBehaviour {
 
@@ -10,6 +13,11 @@ public class Selection : MonoBehaviour {
     [SerializeField] GameObject button;
     [SerializeField] Transform grid;
     public AudioClip selectedMusic;
+
+    private void Start()
+    {
+
+    }
 
     public void GenerateList(List<Music> tracks)
     {

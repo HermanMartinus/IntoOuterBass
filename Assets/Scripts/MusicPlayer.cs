@@ -19,7 +19,7 @@ public class MusicPlayer : MonoBehaviour
  
      private FileInfo[] soundFiles;
      public List<string> validExtensions = new List<string> { ".ogg", ".wav", ".mp3" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
-     public string absolutePath = "./"; // relative path to where the app is running - change this to "./music" in your case
+     public string absolutePath = "/storage/emulated/0/"; // relative path to where the app is running - change this to "./music" in your case
 
     [SerializeField] InputField filePath;
 
@@ -30,7 +30,7 @@ public class MusicPlayer : MonoBehaviour
  
          if (source == null) source = gameObject.AddComponent<AudioSource>();
  
-         GetFiles("/storage/emulated/0/");
+         GetFiles(absolutePath);
      }
 
     public void CheckPath()
@@ -42,7 +42,7 @@ public class MusicPlayer : MonoBehaviour
         //}
         //absolutePath = filePath.text;
         //ReloadSounds();
-        GetFiles("/storage/emulated/0/");
+        GetFiles(absolutePath);
     }
 
     void Seek(SeekDirection d)
@@ -104,7 +104,7 @@ public class MusicPlayer : MonoBehaviour
             List<Music> tracks = new List<Music>();
             foreach (string f in files)
             {
-                tracks.Add(new Music(f, f));
+                tracks.Add(new Music(f.Substring(f.LastIndexOf('/') + 1), f));
                 Debug.Log(f);
             }
             FindObjectOfType<Selection>().GenerateList(tracks);

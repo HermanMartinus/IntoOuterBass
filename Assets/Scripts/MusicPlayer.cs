@@ -19,7 +19,8 @@ public class MusicPlayer : MonoBehaviour
  
      private FileInfo[] soundFiles;
      public List<string> validExtensions = new List<string> { ".ogg", ".wav", ".mp3" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
-     public string absolutePath = "/storage/emulated/0/"; // relative path to where the app is running - change this to "./music" in your case
+     public string absolutePath = "/"; // relative path to where the app is running - change this to "./music" in your case
+    public string androidPath = "/storage/emulated/0/";
 
     [SerializeField] InputField filePath;
 
@@ -30,7 +31,7 @@ public class MusicPlayer : MonoBehaviour
  
          if (source == null) source = gameObject.AddComponent<AudioSource>();
  
-         GetFiles(absolutePath);
+         GetFiles(Application.platform == RuntimePlatform.Android ? androidPath : absolutePath);
      }
 
     public void CheckPath()

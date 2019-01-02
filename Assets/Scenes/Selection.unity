@@ -346,7 +346,8 @@ MonoBehaviour:
   - .ogg
   - .wav
   - .mp3
-  absolutePath: /Users/herman/Desktop/Music/
+  absolutePath: /Users/herman/Desktop/
+  androidPath: /storage/emulated/0/
   filePath: {fileID: 2141433385}
 --- !u!224 &976194912
 RectTransform:

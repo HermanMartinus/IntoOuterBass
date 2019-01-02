@@ -198,7 +198,7 @@ Prefab:
     - target: {fileID: 114565750721570278, guid: 16a4bdc1909fe4028a30197a43320934,
         type: 2}
       propertyPath: FileExtensions.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4455502657589730, guid: 16a4bdc1909fe4028a30197a43320934, type: 2}
       propertyPath: m_LocalPosition.x
@@ -249,7 +249,12 @@ Prefab:
     - target: {fileID: 114565750721570278, guid: 16a4bdc1909fe4028a30197a43320934,
         type: 2}
       propertyPath: FileExtensions.Array.data[1]
-      value: 
+      value: ogg
+      objectReference: {fileID: 0}
+    - target: {fileID: 114565750721570278, guid: 16a4bdc1909fe4028a30197a43320934,
+        type: 2}
+      propertyPath: FileExtensions.Array.data[2]
+      value: wav
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16a4bdc1909fe4028a30197a43320934, type: 2}

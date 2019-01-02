@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 847420533}
   - component: {fileID: 847420532}
   m_Layer: 0
-  m_Name: Sidebar
+  m_Name: SidebarRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 1819727939}
   - component: {fileID: 1819727938}
   m_Layer: 0
-  m_Name: Sidebar (1)
+  m_Name: SidebarLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

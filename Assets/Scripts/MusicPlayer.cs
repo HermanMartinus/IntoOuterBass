@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
  using System.Collections;
  using System.Collections.Generic;
+
  using System.IO;
  using System.Linq;
 using UnityEngine.UI;
+
  
  public class MusicPlayer : MonoBehaviour
  {
@@ -29,8 +31,29 @@ using UnityEngine.UI;
  
          ReloadSounds();
 
-
+        GetCurDirFolders();
      }
+
+    string _curPath;
+    List<string> _curDirectoryFolderPaths = new List<string>();
+
+    void GetCurDirFolders()
+    {
+        _curPath = Directory.GetDirectoryRoot("/");
+        foreach (string folderPath in Directory.GetDirectories(_curPath))
+        {
+            try
+            {
+                _curDirectoryFolderPaths.Add(folderPath);
+                Debug.Log(folderPath);
+            }
+            catch (System.Exception error)
+            {
+                Debug.Log(error);
+            }
+        }
+        Debug.Log("Found " + _curDirectoryFolderPaths.Count.ToString() + " Folder(s) in this Directory ");
+    }
 
     public void CheckPath()
     {

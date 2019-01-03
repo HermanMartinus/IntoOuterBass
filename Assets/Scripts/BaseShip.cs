@@ -24,7 +24,7 @@ public class BaseShip : MonoBehaviour {
     float shieldTime = 0f;
     public List<float> speedSteps = new List<float>();
     [SerializeField] GameObject explosion;
-
+    [SerializeField] Transform speaker;
 
     public OnJumpEventHandler onJump;
     [System.Serializable]
@@ -43,7 +43,8 @@ public class BaseShip : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        FindObjectOfType<MainController>().onJumpBeat.AddListener(Beat);
+        FindObjectOfType<MainController>().onJumpBeat.AddListener(JumpBeat);
+        FindObjectOfType<MainController>().onBeat.AddListener(StandardBeat);
         rb = GetComponent<Rigidbody2D>();
         lastHitTime = Time.time;
     }
@@ -53,6 +54,12 @@ public class BaseShip : MonoBehaviour {
 
 
         InputManager();
+
+        if(speaker.localScale.x > 1)
+        {
+            speaker.localScale *= 0.98f;
+        }
+
 
         t += Time.deltaTime / timeToReachTarget;
         transform.position = Vector3.Lerp(startPosition, target, Easing.Quintic.Out(t));
@@ -132,22 +139,7 @@ public class BaseShip : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            //if (Input.mousePosition.x < Screen.width / 4)
-            //{
-            //    Jump(new Vector2(-2.5f, yPosition), jumpTime);
-            //    altenator = false;
-            //}
-            //else if (Input.mousePosition.x > (Screen.width / 4)*3)
-            //{
-            //    Jump(new Vector2(2.5f, yPosition), jumpTime);
-            //    altenator = true;
-            //}
-            //else
-            //{
-                Jump(new Vector2(altenator ? -lanePositionX : lanePositionX, yPosition), jumpTime);
-                altenator = !altenator;
-            //}
-
+            Jump();
         }
     }
 
@@ -158,28 +150,30 @@ public class BaseShip : MonoBehaviour {
         transform.rotation = Quaternion.RotateTowards(currentRotation, wantedRotation, Time.deltaTime * rotateSpeed);
     }
 
-    void Beat ()
+    void JumpBeat ()
     {
-        foreach (Box box in FindObjectsOfType<Box>())
-        {
-            box.transform.localScale = Vector2.one * 1.2f;
-        }
         if (testing)
         {
-            Jump(new Vector2(altenator ? -lanePositionX : lanePositionX, yPosition) , jumpTime);
-            altenator = !altenator;
+            Jump();
+
         }
     }
 
-    public void Jump(Vector2 _target, float _jumpTime)
+    void StandardBeat ()
+    {
+        speaker.localScale = Vector2.one * 1.5f;
+    }
+
+    public void Jump()
     {
         t = 0;
         startPosition = transform.position;
-        timeToReachTarget = _jumpTime;
-        target = _target;
+        timeToReachTarget = jumpTime;
+        target = new Vector2(altenator ? -lanePositionX : lanePositionX, yPosition);
         jumping = true;
-        StartCoroutine("EndJump", _jumpTime);
+        StartCoroutine("EndJump", jumpTime);
         onJump.Invoke();
+        altenator = !altenator;
     }
 
 
@@ -227,7 +221,7 @@ public class BaseShip : MonoBehaviour {
     IEnumerator ResetTime()
     {
         yield return new WaitForSeconds(0.5f);
-        FindObjectOfType<MainController>().ResetDifficulty();
+        //FindObjectOfType<MainController>().ResetDifficulty();
         foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
         {
             audioSource.pitch = 1;

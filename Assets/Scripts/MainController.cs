@@ -14,6 +14,7 @@ public class MainController : MonoBehaviour
     [SerializeField] AudioSource beatGeneratorAudioSource;
     [SerializeField] AudioSource listenAudioSource;
     [SerializeField] List<Sprite> boxes;
+    public float difficulty = 0.8f;
     public AudioClip activeMusic;
     public float platformDropTimer = 0.2f;
     public float beatTimeDifference = 2f;
@@ -31,6 +32,13 @@ public class MainController : MonoBehaviour
     public OnJumpBeatEventHandler onJumpBeat;
     [System.Serializable]
     public class OnJumpBeatEventHandler : UnityEngine.Events.UnityEvent
+    {
+
+    }
+    [Header("Events")]
+    public OnBeatEventHandler onBeat;
+    [System.Serializable]
+    public class OnBeatEventHandler : UnityEngine.Events.UnityEvent
     {
 
     }
@@ -112,6 +120,7 @@ public class MainController : MonoBehaviour
     //to adjust the sensitivity
     public void onOnbeatDetected ()
 	{
+        StartCoroutine("StandardBeat");
         if (canSpawn)
         {
 
@@ -155,6 +164,13 @@ public class MainController : MonoBehaviour
         canSpawn = true;
     }
 
+    IEnumerator StandardBeat()
+    {
+
+        yield return new WaitForSeconds(beatTimeDifference);
+        onBeat.Invoke();
+    }
+
     IEnumerator JumpBeat(bool _altenator)
     {
         yield return new WaitForSeconds(beatTimeDifference);
@@ -169,7 +185,7 @@ public class MainController : MonoBehaviour
         float percentageCompleted = Mathf.Abs(((timeLeft / clipLength)-1));
 
         if(!beater.GetComponent<BaseShip>().spinning)
-            Time.timeScale = 1 + (percentageCompleted*0.8f);
+            Time.timeScale = 1 + (percentageCompleted* difficulty);
 
         holeSize = holeSizeRange.x - percentageCompleted*(holeSizeRange.x - holeSizeRange.y);
     }

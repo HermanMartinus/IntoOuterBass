@@ -25,6 +25,7 @@ public class MainController : MonoBehaviour
     bool canSpawn = true;
     float clipLength;
     float startTime;
+    bool started = false;
 
     [Header("Events")]
     public OnJumpBeatEventHandler onJumpBeat;
@@ -45,8 +46,14 @@ public class MainController : MonoBehaviour
         listenAudioSource.clip = activeMusic;
     }
 
-    void Start ()
+    private void Start()
+    {
+        
+    }
+
+    void GameStart ()
 	{
+        started = true;
 		AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
@@ -60,6 +67,15 @@ public class MainController : MonoBehaviour
 
     private void Update()
     {
+        if (!started)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameStart();
+            }
+            return;
+        }
+
         platformDropTimer -= Time.deltaTime;
         if (platformDropTimer <= 0f)
         {

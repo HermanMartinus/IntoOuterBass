@@ -476,21 +476,29 @@ MonoBehaviour:
   beatGeneratorAudioSource: {fileID: 519420030}
   listenAudioSource: {fileID: 1672929376}
   boxes:
-  - {fileID: 21300000, guid: 5d646d26e71064769a0d0205753d2580, type: 3}
-  - {fileID: 21300000, guid: 42998535faeaf4f7f8f458f01abb10ed, type: 3}
-  - {fileID: 21300000, guid: 9c9c12e04d204477c96022c6d8e5e907, type: 3}
-  - {fileID: 21300000, guid: e2f1e407168cc4b13bbbac09b27bf220, type: 3}
-  - {fileID: 21300000, guid: 7292b68c480a84bb0ae7b9fccf3c7d33, type: 3}
-  - {fileID: 21300000, guid: 64ca4def57b9e410fbc6247aeeb9cbe4, type: 3}
-  - {fileID: 21300000, guid: 06536cd275a694ebfbc82a35bef897ea, type: 3}
-  - {fileID: 21300000, guid: 18b9a8579c092425f96bb9ae9c347cbb, type: 3}
-  - {fileID: 21300000, guid: e455d0042924f4eb1b377d50f51546ee, type: 3}
-  - {fileID: 21300000, guid: 5859e70c81ea84486b935451c6ec6b3d, type: 3}
-  - {fileID: 21300000, guid: 867454d8c65e64c1eafc009823dabe32, type: 3}
-  - {fileID: 21300000, guid: 56ca3d251a967415ebbe29f4f095da95, type: 3}
-  - {fileID: 21300000, guid: 341caa8cabacc4913b71cdd8e95527a9, type: 3}
-  - {fileID: 21300000, guid: b05ec3170098c408595c19dfc8525e1c, type: 3}
-  - {fileID: 21300000, guid: 0245d705b13ee407da7c7c98cb208d67, type: 3}
+  - {fileID: 21300000, guid: 50258e498cac542c5895ea89700809f7, type: 3}
+  - {fileID: 21300000, guid: 7dfd46da0c9c74fd1bd6ec78ea7deff3, type: 3}
+  - {fileID: 21300000, guid: 1ccea930096a64c6092eabd89c9f274b, type: 3}
+  - {fileID: 21300000, guid: 577e3c6f887f347a780857ebd73a48ae, type: 3}
+  - {fileID: 21300000, guid: f0a2fca8068f74a0d9971bdbcfdf8258, type: 3}
+  - {fileID: 21300000, guid: a7a78f08d688645708f1ee7835d6ef42, type: 3}
+  - {fileID: 21300000, guid: cf1b9a0babc8a43e48dc634cc18058ac, type: 3}
+  - {fileID: 21300000, guid: b04a04a83895b4122b16d827cebb4fc3, type: 3}
+  - {fileID: 21300000, guid: 4440a2b3c867e48fca3ba13b9d91059e, type: 3}
+  - {fileID: 21300000, guid: 48fef16bf73f344cf96c0bb827a93846, type: 3}
+  - {fileID: 21300000, guid: 145d2e56dc7374f869f6e49dd436ca7f, type: 3}
+  - {fileID: 21300000, guid: a3798dd4304da44d3aba15586e8186da, type: 3}
+  - {fileID: 21300000, guid: 90a14540199004d9795bde7b7e1036b1, type: 3}
+  - {fileID: 21300000, guid: 8b16c4b95d7a34263ae57024d4ea1812, type: 3}
+  - {fileID: 21300000, guid: 92c7a2c093eb84758aa2d9326c2e325a, type: 3}
+  - {fileID: 21300000, guid: 14380e2fec1d44d6da3924370f9cfb17, type: 3}
+  - {fileID: 21300000, guid: bc8a76330e94643139f1fbac3188ee69, type: 3}
+  - {fileID: 21300000, guid: 118ceabf913554aabac5769bdffe1d15, type: 3}
+  - {fileID: 21300000, guid: d805b0dda04194c0fbb217303ccc70f3, type: 3}
+  - {fileID: 21300000, guid: fe3b9fb21cd584135985edd40a8170cb, type: 3}
+  - {fileID: 21300000, guid: 552a186ea61fe433292652b0873fd329, type: 3}
+  - {fileID: 21300000, guid: b1077b7ef6b8f4ee5ab216c4b3dd64a4, type: 3}
+  - {fileID: 21300000, guid: 0de621347566f4e67b1001cbe0cf4af2, type: 3}
   activeMusic: {fileID: 8300000, guid: ca4753e4d64e1410bbd7757bd744e89a, type: 3}
   platformDropTimer: 2
   beatTimeDifference: 2.65
@@ -867,9 +875,9 @@ RectTransform:
   m_Father: {fileID: 741004108}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -71, y: 1100}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -71, y: -71}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &918161043
@@ -1033,6 +1041,29 @@ Prefab:
       propertyPath: lines.Array.data[3]
       value: 
       objectReference: {fileID: 1819727938}
+    - target: {fileID: 212434488074974830, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c5d162851cba8450b8023ba8a755a188,
+        type: 3}
+    - target: {fileID: 4151013649945938, guid: 9c78584672da446b18365d16a8245769, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717298726760320, guid: 9c78584672da446b18365d16a8245769, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: testing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404623743942812, guid: 9c78584672da446b18365d16a8245769, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.19
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c78584672da446b18365d16a8245769, type: 2}
   m_IsPrefabAsset: 0

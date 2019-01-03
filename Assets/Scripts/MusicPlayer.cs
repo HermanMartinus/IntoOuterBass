@@ -6,8 +6,6 @@ using System.Linq;
 using UnityEngine.UI;
 using System;
 
-
-
 public class MusicPlayer : MonoBehaviour
  {
      public enum SeekDirection { Forward, Backward }
@@ -97,7 +95,6 @@ public class MusicPlayer : MonoBehaviour
 
         try
         {
-            //string path = Application.dataPath;
 
             IEnumerable<string> files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
                 .Where(s => s.EndsWith(".mp3") || s.EndsWith(".wav") || s.EndsWith(".aif") || s.EndsWith(".ogg"));
@@ -105,8 +102,11 @@ public class MusicPlayer : MonoBehaviour
             List<Music> tracks = new List<Music>();
             foreach (string f in files)
             {
-                tracks.Add(new Music(f.Substring(f.LastIndexOf('/') + 1), f));
-                Debug.Log(f);
+                FileInfo file = new FileInfo(f);
+                long fileSize = file.Length;
+                if(fileSize / 1024 > 1024)
+                    tracks.Add(new Music(f.Substring(f.LastIndexOf('/') + 1), f));
+
             }
             FindObjectOfType<Selection>().GenerateList(tracks);
             return tracks;
@@ -141,6 +141,5 @@ public class MusicPlayer : MonoBehaviour
          print("done loading");
          clip.name = Path.GetFileName(path);
          FindObjectOfType<LoadedClips>().clips.Add(clip);
-
      }
  }

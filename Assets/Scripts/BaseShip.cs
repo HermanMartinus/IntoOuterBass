@@ -23,6 +23,7 @@ public class BaseShip : MonoBehaviour {
     public float shieldCooldown = 30f;
     float shieldTime = 0f;
     public List<float> speedSteps = new List<float>();
+    public int level = 0;
     [SerializeField] GameObject explosion;
     [SerializeField] Transform speaker;
 
@@ -49,7 +50,7 @@ public class BaseShip : MonoBehaviour {
         lastHitTime = Time.time;
     }
 
-    int level = 0;
+
     void Update () {
 
 

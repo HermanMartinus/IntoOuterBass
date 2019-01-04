@@ -28,7 +28,7 @@ public class Box : MonoBehaviour {
 
     void JumpBeat()
     {
-        transform.localScale = Vector2.one * 1.2f;
+        transform.localScale = Vector2.one * (platform? 1.5f : 1.2f);
     }
 
 }

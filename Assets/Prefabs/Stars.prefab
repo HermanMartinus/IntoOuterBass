@@ -55,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.3
   resetOffset: -35
+  rotated: 1
 --- !u!198 &198808283324273148
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -13,10 +13,30 @@ public class Selection : MonoBehaviour {
     [SerializeField] GameObject button;
     [SerializeField] Transform grid;
     public AudioClip selectedMusic;
+    public List<Transform> buttons = new List<Transform>();
 
     private void Start()
     {
+        FindObjectOfType<AudioProcessor>().onBeat.AddListener(Beat);
+    }
 
+    void Update()
+    {
+        foreach(Transform btn in buttons)
+        {
+            if (btn.localScale.x > 1)
+            {
+                btn.localScale *= 0.98f;
+            }
+        }
+    }
+
+    void Beat()
+    {
+        foreach (Transform btn in buttons)
+        {
+            btn.localScale = Vector2.one * 1.05f;
+        }
     }
 
     public void GenerateList(List<Music> tracks)
@@ -27,6 +47,7 @@ public class Selection : MonoBehaviour {
             GameObject spawnedButton = Instantiate(button, grid);
             spawnedButton.GetComponentInChildren<Text>().text = track.name;
             spawnedButton.GetComponent<Button>().onClick.AddListener(delegate { AddTrack(track.url); });
+            buttons.Add(spawnedButton.transform);
         }
     }
 

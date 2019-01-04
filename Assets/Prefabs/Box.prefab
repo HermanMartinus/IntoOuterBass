@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e323c61d7bb504c23a329702dda02842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 1278143221916872, guid: 79e08813b709c4fc590834cabee1be9f, type: 2}
+  platform: 0
 --- !u!212 &212605946865289832
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0de621347566f4e67b1001cbe0cf4af2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -26,7 +26,7 @@ public class MainController : MonoBehaviour
     bool canSpawn = true;
     float clipLength;
     float startTime;
-    bool started = false;
+    public bool started = false;
 
     [Header("Events")]
     public OnJumpBeatEventHandler onJumpBeat;

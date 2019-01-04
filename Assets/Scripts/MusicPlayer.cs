@@ -111,7 +111,11 @@ public class MusicPlayer : MonoBehaviour
                 FileInfo file = new FileInfo(f);
                 long fileSize = file.Length;
                 if (fileSize / 1024 > 1024)
-                    tracks.Add(new Music(f.Substring(f.LastIndexOf('/') + 1), f));
+                {
+                    string trackName = f.Substring(f.LastIndexOf('/') + 1);
+                    trackName = trackName.Substring(0, trackName.LastIndexOf('.'));
+                    tracks.Add(new Music(trackName, f));
+                }
 
             }
             FindObjectOfType<Selection>().GenerateList(tracks);
@@ -147,5 +151,6 @@ public class MusicPlayer : MonoBehaviour
         print("done loading");
         clip.name = Path.GetFileName(path);
         FindObjectOfType<LoadedClips>().clips.Add(clip);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
 }

@@ -9,9 +9,11 @@ public class Score : MonoBehaviour {
     public int jumpPoints = 5;
 
     BaseShip bassShip;
+    MainController mainController;
 
 	// Use this for initialization
 	void Start () {
+        mainController = FindObjectOfType<MainController>();
         bassShip = FindObjectOfType<BaseShip>();
         bassShip.onJump.AddListener(Jump);
         bassShip.onFail.AddListener(Fail);
@@ -21,6 +23,9 @@ public class Score : MonoBehaviour {
     float nextTime = 0;
 
     void Update () {
+        if (!mainController.started)
+            return;
+
         GetComponent<Text>().text = score.ToString("00000");
         if (Time.time >= nextTime)
         {
@@ -31,6 +36,8 @@ public class Score : MonoBehaviour {
 
     void Jump()
     {
+        if (!mainController.started)
+            return;
         score += jumpPoints * (bassShip.level+1);
     }
 

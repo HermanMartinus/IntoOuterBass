@@ -53,8 +53,6 @@ public class Selection : MonoBehaviour {
 
     public void AddTrack(string url)
     {
-        Debug.Log(url);
-
         FindObjectOfType<MusicPlayer>().LoadThatFile(url);
     }
 
@@ -78,7 +76,6 @@ public class Selection : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(scene.name);
         if(scene.name == "Selection")
         {
             grid.gameObject.SetActive(true);
@@ -86,6 +83,7 @@ public class Selection : MonoBehaviour {
     }
 }
 
+[Serializable]
 public struct Music
 {
     public Music(string _name, string _url)

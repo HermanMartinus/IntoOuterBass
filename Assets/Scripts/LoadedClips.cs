@@ -5,6 +5,7 @@ using UnityEngine;
 public class LoadedClips : MonoBehaviour {
 
     public List<AudioClip> clips = new List<AudioClip>();
+    public List<Music> audioFiles = new List<Music>();
 
     private void Awake()
     {

@@ -15,8 +15,9 @@ public class MusicPlayer : MonoBehaviour
 
     [SerializeField] [HideInInspector] private int currentIndex = 0;
 
+    LoadedClips loadedClips;
+
     private FileInfo[] soundFiles;
-    public List<string> validExtensions = new List<string> { ".ogg", ".wav", ".mp3" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
     public string absolutePath = "/"; // relative path to where the app is running - change this to "./music" in your case
     public string androidPath = "/storage/emulated/0/";
     public string iOSPath = "/private/var/mobile";
@@ -25,28 +26,21 @@ public class MusicPlayer : MonoBehaviour
 
     void Start()
     {
-        //being able to test in unity
-        //if (Application.isEditor) absolutePath = "Assets/";
-
-        if (source == null) source = gameObject.AddComponent<AudioSource>();
-        if (Application.platform == RuntimePlatform.Android)
-            GetFiles(androidPath);
-        else if (Application.platform == RuntimePlatform.IPhonePlayer)
-            GetFiles(iOSPath);
+        loadedClips = FindObjectOfType<LoadedClips>();
+        if (loadedClips.audioFiles.Count == 0)
+        {
+            if (source == null) source = gameObject.AddComponent<AudioSource>();
+            if (Application.platform == RuntimePlatform.Android)
+                GetFiles(androidPath);
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
+                GetFiles(iOSPath);
+            else
+                GetFiles(absolutePath);
+        }
         else
-            GetFiles(absolutePath);
-    }
-
-    public void CheckPath()
-    {
-        //List<string> files = GetFiles("/");
-        //foreach (string file in files)
-        //{
-        //    Debug.Log(file);
-        //}
-        //absolutePath = filePath.text;
-        //ReloadSounds();
-        GetFiles(absolutePath);
+        {
+            FindObjectOfType<Selection>().GenerateList(loadedClips.audioFiles);
+        }
     }
 
     void Seek(SeekDirection d)
@@ -66,37 +60,8 @@ public class MusicPlayer : MonoBehaviour
         source.Play();
     }
 
-    // void ReloadSounds()
-    // {
-    //     clips.Clear();
-    //     // get all valid files
-    //     var info = new DirectoryInfo(absolutePath);
-    //     soundFiles = info.GetFiles()
-    //         .Where(f => IsValidFileType(f.Name))
-    //         .ToArray();
-
-    //    List<Music> tracks = new List<Music>();
-
-    //     // and load them
-    //     foreach (var s in soundFiles)
-    //    {
-    //        tracks.Add(new Music(s.Name, s.FullName));
-    //    }
-
-    //    FindObjectOfType<Selection>().GenerateList(tracks);
-    //    //StartCoroutine(LoadFile(s.FullName));
-    //}
-
-    //bool IsValidFileType(string fileName)
-    //{
-    //    return validExtensions.Contains(Path.GetExtension(fileName));
-    //    // Alternatively, you could go fileName.SubString(fileName.LastIndexOf('.') + 1); that way you don't need the '.' when you add your extensions
-    //}
-
-
-    public List<Music> GetFiles(string path)
+    public void GetFiles(string path)
     {
-        Debug.Log("Getting files");
         List<string> fileList = new List<string>();
 
         try
@@ -104,22 +69,20 @@ public class MusicPlayer : MonoBehaviour
 
             IEnumerable<string> files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
                 .Where(s => s.EndsWith(".mp3") || s.EndsWith(".wav") || s.EndsWith(".aif") || s.EndsWith(".ogg"));
-
-            List<Music> tracks = new List<Music>();
+                
             foreach (string f in files)
             {
                 FileInfo file = new FileInfo(f);
                 long fileSize = file.Length;
-                //if (fileSize / 1024 > 1024)
-                //{
+                if (fileSize / 1024 > 1024)
+                {
                     string trackName = f.Substring(f.LastIndexOf('/') + 1);
                     trackName = trackName.Substring(0, trackName.LastIndexOf('.'));
-                    tracks.Add(new Music(trackName, f));
-                //}
+                    loadedClips.audioFiles.Add(new Music(trackName, f));
+                }
 
             }
-            FindObjectOfType<Selection>().GenerateList(tracks);
-            return tracks;
+            FindObjectOfType<Selection>().GenerateList(loadedClips.audioFiles);
         }
         catch (UnauthorizedAccessException UAEx)
         {
@@ -130,12 +93,10 @@ public class MusicPlayer : MonoBehaviour
             Console.WriteLine(PathEx.Message);
         }
 
-        return null;
     }
 
     public void LoadThatFile(string path)
     {
-        Debug.Log(path);
         StartCoroutine(LoadFile(path));
     }
 
@@ -150,7 +111,7 @@ public class MusicPlayer : MonoBehaviour
 
         print("done loading");
         clip.name = Path.GetFileName(path);
-        FindObjectOfType<LoadedClips>().clips.Add(clip);
+        loadedClips.clips.Add(clip);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
 }

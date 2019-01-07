@@ -342,10 +342,6 @@ MonoBehaviour:
   source: {fileID: 0}
   clips: []
   currentIndex: 0
-  validExtensions:
-  - .ogg
-  - .wav
-  - .mp3
   absolutePath: /Users/herman/Desktop/
   androidPath: /storage/emulated/0/
   iOSPath: /private/var/mobile
@@ -478,6 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips: []
+  audioFiles: []
 --- !u!4 &1056635662
 Transform:
   m_ObjectHideFlags: 0
@@ -5652,6 +5649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.3
   resetOffset: -35
+  rotated: 0
 --- !u!4 &1619720250
 Transform:
   m_ObjectHideFlags: 0

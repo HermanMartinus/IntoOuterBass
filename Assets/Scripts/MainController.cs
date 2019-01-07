@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MainController : MonoBehaviour
 {
 
-    [SerializeField] GameObject beater;
+    [SerializeField] GameObject bassShip;
     [SerializeField] GameObject box;
     [SerializeField] GameObject platform;
 
@@ -27,6 +27,9 @@ public class MainController : MonoBehaviour
     float clipLength;
     float startTime;
     public bool started = false;
+
+    [SerializeField] GameObject leaderBoard;
+    [SerializeField] GameObject gameUi;
 
     [Header("Events")]
     public OnJumpBeatEventHandler onJumpBeat;
@@ -70,11 +73,17 @@ public class MainController : MonoBehaviour
         listenAudioSource.PlayDelayed(beatTimeDifference);
 
         startTime = Time.time;
-        clipLength = activeMusic.length;
+        clipLength = activeMusic.samples/activeMusic.frequency;
+
+        StartCoroutine("OnSongCompleted");
 	}
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ShowLeaderBoard();
+        }
         if (!started)
         {
             if (Input.GetMouseButtonDown(0))
@@ -181,11 +190,14 @@ public class MainController : MonoBehaviour
 
     void DificultyIncreaser()
     {
-        float timeLeft = clipLength - (Time.time - startTime);
+        float timeLeft = Time.time - (Time.realtimeSinceStartup - startTime);
+
+        Debug.Log(timeLeft);
         float percentageCompleted = Mathf.Abs(((timeLeft / clipLength)-1));
 
-        if(!beater.GetComponent<BaseShip>().spinning)
-            Time.timeScale = 1 + (percentageCompleted* difficulty);
+        if(!bassShip.GetComponent<BaseShip>().spinning)
+            Time.timeScale = 1 + (percentageCompleted * difficulty);
+
 
         holeSize = holeSizeRange.x - percentageCompleted*(holeSizeRange.x - holeSizeRange.y);
     }
@@ -210,7 +222,29 @@ public class MainController : MonoBehaviour
     public void Menu()
     {
         if(FindObjectOfType<LoadedClips>())
+        {
+            foreach(AudioClip clip in FindObjectOfType<LoadedClips>().clips)
+            {
+                clip.UnloadAudioData();
+            }
             FindObjectOfType<LoadedClips>().clips.Clear();
+        }
         SceneManager.LoadScene("Selection");
+    }
+
+    IEnumerator OnSongCompleted()
+    {
+        yield return new WaitForSecondsRealtime(clipLength+5);
+        ShowLeaderBoard();
+    }
+
+    void ShowLeaderBoard()
+    {
+        leaderBoard.GetComponent<Leaderboard>().ShowLeaderboard(FindObjectOfType<Score>().score);
+        leaderBoard.SetActive(true);
+        gameUi.SetActive(false);
+
+        bassShip.GetComponent<BaseShip>().ended = true;
+        //GameStart();
     }
 }

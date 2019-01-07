@@ -26,6 +26,7 @@ public class BaseShip : MonoBehaviour {
     public int level = 0;
     [SerializeField] GameObject explosion;
     [SerializeField] Transform speaker;
+    public bool ended = false;
 
     public OnJumpEventHandler onJump;
     [System.Serializable]
@@ -138,9 +139,14 @@ public class BaseShip : MonoBehaviour {
     void InputManager()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !ended)
         {
+            testing = false;
             Jump();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            testing = true;
         }
     }
 

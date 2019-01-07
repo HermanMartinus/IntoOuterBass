@@ -35,7 +35,7 @@ public class Selection : MonoBehaviour {
     {
         foreach (Transform btn in buttons)
         {
-            btn.localScale = Vector2.one * 1.05f;
+            btn.localScale = Vector2.one * 1.02f;
         }
     }
 

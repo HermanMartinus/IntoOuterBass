@@ -47,6 +47,7 @@ public class Selection : MonoBehaviour {
             GameObject spawnedButton = Instantiate(button, grid);
             spawnedButton.GetComponentInChildren<Text>().text = track.name;
             spawnedButton.GetComponent<Button>().onClick.AddListener(delegate { AddTrack(track.url); });
+            spawnedButton.transform.Find("Backer").GetComponent<Image>().color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
             buttons.Add(spawnedButton.transform);
         }
     }

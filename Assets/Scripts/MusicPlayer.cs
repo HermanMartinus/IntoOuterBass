@@ -110,12 +110,12 @@ public class MusicPlayer : MonoBehaviour
             {
                 FileInfo file = new FileInfo(f);
                 long fileSize = file.Length;
-                if (fileSize / 1024 > 1024)
-                {
+                //if (fileSize / 1024 > 1024)
+                //{
                     string trackName = f.Substring(f.LastIndexOf('/') + 1);
                     trackName = trackName.Substring(0, trackName.LastIndexOf('.'));
                     tracks.Add(new Music(trackName, f));
-                }
+                //}
 
             }
             FindObjectOfType<Selection>().GenerateList(tracks);

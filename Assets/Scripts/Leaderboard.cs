@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Leaderboard : MonoBehaviour {
 
@@ -10,10 +11,17 @@ public class Leaderboard : MonoBehaviour {
     [SerializeField] GameObject scorePrefab;
     [SerializeField] GameObject inputObject;
 
-    int score = 0;
+    int points = 0;
+    string trackName = "";
 
-	public void ShowLeaderboard (int _score) {
-        score = _score;
+    private void Start()
+    {
+        GetScore();
+    }
+
+    public void ShowLeaderboard (int _points, string _trackName) {
+        points = _points;
+        trackName = _trackName;
         inputObject.SetActive(true);
 	}
 
@@ -43,16 +51,18 @@ public class Leaderboard : MonoBehaviour {
             if(scoreIndex != null && index-1 == scoreIndex)
             {
                 spawnedScore.transform.Find("Rank").GetComponent<Text>().color = Color.red;
+                spawnedScore.transform.Find("Score").GetComponent<Text>().color = Color.red;
+                spawnedScore.transform.Find("Initials").GetComponent<Text>().color = Color.red;
             }
         }
     }
 
     void InsertScore(string initials) 
     {
-        HighScore newScore = new HighScore(initials, score);
+        HighScore newScore = new HighScore(initials, points);
         scores.Add(newScore);
         scores = scores.OrderByDescending(s => s.points).ToList();
-        if (scores.Count > 9) 
+        if (scores.Count > 10) 
             scores.RemoveAt(scores.Count-1);
 
         if (!scores.Contains(newScore))
@@ -60,13 +70,59 @@ public class Leaderboard : MonoBehaviour {
             scores[scores.Count-1] = newScore;
             scores[scores.Count - 1].rank = "...";
         }
-
+        SetScore();
         DisplayScores(scores.IndexOf(newScore));
+        GetScore();
     }
 
-    void SaveScore()
+    void SetScore()
     {
+       PlayerPrefs.SetString(trackName, ToJson(scores.ToArray()));
+    }
+    void GetScore()
+    {
+        if (PlayerPrefs.HasKey(trackName))
+        {
+            HighScore[] retrieved = FromJson<HighScore>(PlayerPrefs.GetString(trackName));
+            scores = retrieved.ToList();
+        }
+    }
 
+    public static string ToJson<T>(T[] array)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper);
+    }
+
+    public static T[] FromJson<T>(string json)
+    {
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        return wrapper.Items;
+    }
+
+    [Serializable]
+    private class Wrapper<T>
+    {
+        public T[] Items;
+    }
+
+    public void Menu ()
+    {
+        if (FindObjectOfType<LoadedClips>())
+        {
+            foreach (AudioClip clip in FindObjectOfType<LoadedClips>().clips)
+            {
+                clip.UnloadAudioData();
+            }
+            FindObjectOfType<LoadedClips>().clips.Clear();
+        }
+        SceneManager.LoadScene("Selection");
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public static string AddOrdinal(int num)
@@ -97,7 +153,7 @@ public class Leaderboard : MonoBehaviour {
 
 }
 
-[System.Serializable]
+[Serializable]
 public class HighScore
 {
     public string initials;

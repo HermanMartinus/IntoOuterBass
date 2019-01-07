@@ -26,7 +26,9 @@ public class MainController : MonoBehaviour
     bool canSpawn = true;
     float clipLength;
     float startTime;
-    public bool started = false;
+    public bool playing = false;
+    public bool ended = false;
+    float timeLeft = 100;
 
     [SerializeField] GameObject leaderBoard;
     [SerializeField] GameObject gameUi;
@@ -59,12 +61,12 @@ public class MainController : MonoBehaviour
 
     private void Start()
     {
-        
+        Time.timeScale = 1;
     }
 
     void GameStart ()
 	{
-        started = true;
+        playing = true;
 		AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
@@ -73,18 +75,32 @@ public class MainController : MonoBehaviour
         listenAudioSource.PlayDelayed(beatTimeDifference);
 
         startTime = Time.time;
-        clipLength = activeMusic.samples/activeMusic.frequency;
+        clipLength = activeMusic.length;
 
         StartCoroutine("OnSongCompleted");
+        timeLeft = clipLength;
+        StartCoroutine("InvokeUpdateRealtime");
 	}
 
-    private void Update()
+    IEnumerator InvokeUpdateRealtime()
+    {
+
+        yield return new WaitForSecondsRealtime(1);
+        StartCoroutine("InvokeUpdateRealtime");
+
+        if (playing)
+        {
+            timeLeft -= 1;
+        }
+    }
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ShowLeaderBoard();
         }
-        if (!started)
+        if (!playing && !ended)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -108,7 +124,6 @@ public class MainController : MonoBehaviour
             DestroyAll(GameObject.FindGameObjectsWithTag("Platform"), -10);
             DestroyAll(GameObject.FindGameObjectsWithTag("Box"), -10);
         }
-
 
         DificultyIncreaser();
     }
@@ -187,25 +202,19 @@ public class MainController : MonoBehaviour
         onJumpBeat.Invoke();
     }
 
-
     void DificultyIncreaser()
     {
-        float timeLeft = Time.time - (Time.realtimeSinceStartup - startTime);
-
-        Debug.Log(timeLeft);
-        float percentageCompleted = Mathf.Abs(((timeLeft / clipLength)-1));
-
-        if(!bassShip.GetComponent<BaseShip>().spinning)
-            Time.timeScale = 1 + (percentageCompleted * difficulty);
-
-
-        holeSize = holeSizeRange.x - percentageCompleted*(holeSizeRange.x - holeSizeRange.y);
+        if (playing)
+        {
+            float percentageCompleted = Mathf.Abs(((timeLeft / clipLength) - 1));
+         
+            if (!bassShip.GetComponent<BaseShip>().spinning)
+                Time.timeScale = 1 + (percentageCompleted * difficulty);
+                
+            holeSize = holeSizeRange.x - percentageCompleted * (holeSizeRange.x - holeSizeRange.y);
+        }
     }
 
-    public void ResetDifficulty()
-    {
-        startTime = Time.time;
-    }
     //This event will be called every frame while music is playing
     public void onSpectrum (float[] spectrum)
 	{
@@ -235,12 +244,14 @@ public class MainController : MonoBehaviour
     IEnumerator OnSongCompleted()
     {
         yield return new WaitForSecondsRealtime(clipLength+5);
+        playing = false;
+        ended = true;
         ShowLeaderBoard();
     }
 
     void ShowLeaderBoard()
     {
-        leaderBoard.GetComponent<Leaderboard>().ShowLeaderboard(FindObjectOfType<Score>().score);
+        leaderBoard.GetComponent<Leaderboard>().ShowLeaderboard(FindObjectOfType<Score>().score, activeMusic.name);
         leaderBoard.SetActive(true);
         gameUi.SetActive(false);
 

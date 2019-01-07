@@ -49,6 +49,7 @@ public class BaseShip : MonoBehaviour {
         FindObjectOfType<MainController>().onBeat.AddListener(StandardBeat);
         rb = GetComponent<Rigidbody2D>();
         lastHitTime = Time.time;
+        level = 0;
     }
 
 
@@ -84,7 +85,6 @@ public class BaseShip : MonoBehaviour {
         }
 
         Leveling();
-
     }
 
     void Leveling()

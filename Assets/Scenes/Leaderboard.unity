@@ -297,6 +297,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 612779086}
     m_Modifications:
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224972266871312402, guid: e71772556dba44c7bb9b546afaca37fa,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -386,6 +391,106 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[0].initials
+      value: SKG
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[0].points
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[1].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[1].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[2].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[2].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[3].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[3].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[4].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[4].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[5].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[5].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[6].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[6].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[7].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[7].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[8].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[8].points
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[9].initials
+      value: HER
+      objectReference: {fileID: 0}
+    - target: {fileID: 114044285616648706, guid: e71772556dba44c7bb9b546afaca37fa,
+        type: 2}
+      propertyPath: scores.Array.data[9].points
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e71772556dba44c7bb9b546afaca37fa, type: 2}

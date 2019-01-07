@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour {
 
     public int score = 0;
-    public int jumpPoints = 5;
+    public int jumpPoints = 10;
 
     BaseShip bassShip;
     MainController mainController;
+    bool altenator = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,24 +20,21 @@ public class Score : MonoBehaviour {
         bassShip.onFail.AddListener(Fail);
     }
 
-    float interval = 0.2f;
-    float nextTime = 0;
-
-    void Update () {
-        if (!mainController.started)
+    void FixedUpdate () {
+        if (!mainController.playing)
             return;
+        if (altenator)
+        {
+            score += 1;
+        }
+        altenator = !altenator;
 
         GetComponent<Text>().text = score.ToString("00000");
-        if (Time.time >= nextTime)
-        {
-            score += bassShip.level + 1;
-            nextTime += interval;
-        }
 	}
 
     void Jump()
     {
-        if (!mainController.started)
+        if (!mainController.playing)
             return;
         score += jumpPoints * (bassShip.level+1);
     }

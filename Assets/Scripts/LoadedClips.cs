@@ -8,7 +8,7 @@ public class LoadedClips : MonoBehaviour {
 
     private void Awake()
     {
-        Selection[] objs = FindObjectsOfType<Selection>();
+        LoadedClips[] objs = FindObjectsOfType<LoadedClips>();
 
         if (objs.Length > 1)
         {

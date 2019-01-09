@@ -25,8 +25,10 @@ public class BaseShip : MonoBehaviour {
     public List<float> speedSteps = new List<float>();
     public int level = 0;
     [SerializeField] GameObject explosion;
-    [SerializeField] Transform speaker;
+    [SerializeField] Transform speakers;
     public bool ended = false;
+    public bool upgrading = false;
+    [SerializeField] List<Sprite> ships = new List<Sprite>();
 
     public OnJumpEventHandler onJump;
     [System.Serializable]
@@ -58,9 +60,12 @@ public class BaseShip : MonoBehaviour {
 
         InputManager();
 
-        if(speaker.localScale.x > 1)
+        foreach (Transform speaker in speakers)
         {
-            speaker.localScale *= 0.98f;
+            if (speaker.localScale.x > 1)
+            {
+                speaker.localScale *= 0.98f;
+            }
         }
 
 
@@ -71,10 +76,16 @@ public class BaseShip : MonoBehaviour {
         {
             transform.Rotate(Vector3.forward * rotateSpeed * 400 * Easing.Circular.InOut(Time.deltaTime));
         }
+        else if (upgrading)
+        {
+            transform.Rotate(Vector3.up * rotateSpeed * 200 * Easing.Circular.InOut(Time.deltaTime));
+        }
         else
         {
             RotateShip(0);
         }
+
+       
 
         shield.SetActive(shieldUp);
 
@@ -87,6 +98,21 @@ public class BaseShip : MonoBehaviour {
         Leveling();
     }
 
+    IEnumerator Upgrade()
+    {
+        upgrading = true;
+        yield return new WaitForSeconds(0.3f);
+        //transform.Find("ShipSprite").GetComponent<SpriteRenderer>().sprite = ships[level];
+        foreach (Transform speaker in speakers)
+        {
+            speaker.gameObject.SetActive(speaker.name == "speaker" + level);
+        }
+
+        yield return new WaitForSeconds(0.3f);
+
+        upgrading = false;
+    }
+
     void Leveling()
     {
         float timeSinceLastHit = Time.time - lastHitTime;
@@ -97,6 +123,7 @@ public class BaseShip : MonoBehaviour {
             if (level != 5)
             {
                 level = 5;
+                StartCoroutine(Upgrade());
             }
         }
         else if (timeSinceLastHit > speedSteps[4])
@@ -104,6 +131,7 @@ public class BaseShip : MonoBehaviour {
             if (level != 4)
             {
                 level = 4;
+                StartCoroutine(Upgrade());
             }
         }
         else if (timeSinceLastHit > speedSteps[3])
@@ -111,6 +139,7 @@ public class BaseShip : MonoBehaviour {
             if (level != 3)
             {
                 level = 3;
+                StartCoroutine(Upgrade());
             }
         }
         else if (timeSinceLastHit > speedSteps[2])
@@ -118,6 +147,7 @@ public class BaseShip : MonoBehaviour {
             if (level != 2)
             {
                 level = 2;
+                StartCoroutine(Upgrade());
             }
         }
         else if (timeSinceLastHit > speedSteps[1])
@@ -125,6 +155,7 @@ public class BaseShip : MonoBehaviour {
             if (level != 1)
             {
                 level = 1;
+                StartCoroutine(Upgrade());
             }
         }
         else
@@ -132,6 +163,7 @@ public class BaseShip : MonoBehaviour {
             if (level != 0)
             {
                 level = 0;
+                StartCoroutine(Upgrade());
             }
         }
     }
@@ -168,7 +200,10 @@ public class BaseShip : MonoBehaviour {
 
     void StandardBeat ()
     {
-        speaker.localScale = Vector2.one * 1.5f;
+        foreach(Transform speaker in speakers)
+        {
+            speaker.localScale = Vector2.one * Random.Range(1.2f, 1.5f);
+        }
     }
 
     public void Jump()

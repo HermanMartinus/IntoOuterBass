@@ -11,6 +11,9 @@ public class Score : MonoBehaviour {
     BaseShip bassShip;
     MainController mainController;
     bool altenator = false;
+    public List<Color> levelColors = new List<Color>();
+
+    bool failing = false;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +32,8 @@ public class Score : MonoBehaviour {
         }
         altenator = !altenator;
 
+        transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one, 0.2f);
+
         GetComponent<Text>().text = score.ToString("00000");
 	}
 
@@ -37,10 +42,22 @@ public class Score : MonoBehaviour {
         if (!mainController.playing)
             return;
         score += jumpPoints * (bassShip.level+1);
+        GetComponent<Text>().color = levelColors[bassShip.level];
+        if(bassShip.level == 5)
+        {
+            transform.localScale = Vector2.one * 1.7f;
+        }
+        else
+        {
+            transform.localScale = Vector2.one * 1.1f;
+        }
     }
 
     void Fail()
     {
         score -= jumpPoints * (bassShip.level + 1) * 20;
+        failing = true;
+        GetComponent<Text>().color = Color.red;
+        transform.localScale = Vector2.one * 1.7f;
     }
 }

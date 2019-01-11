@@ -50,9 +50,9 @@ public class Leaderboard : MonoBehaviour {
             spawnedScore.transform.Find("Initials").GetComponent<Text>().text = score.initials;
             if(scoreIndex != null && index-1 == scoreIndex)
             {
-                spawnedScore.transform.Find("Rank").GetComponent<Text>().color = Color.red;
-                spawnedScore.transform.Find("Score").GetComponent<Text>().color = Color.red;
-                spawnedScore.transform.Find("Initials").GetComponent<Text>().color = Color.red;
+                spawnedScore.transform.Find("Rank").GetComponent<Text>().color = Color.magenta;
+                spawnedScore.transform.Find("Score").GetComponent<Text>().color = Color.magenta;
+                spawnedScore.transform.Find("Initials").GetComponent<Text>().color = Color.magenta;
             }
         }
     }

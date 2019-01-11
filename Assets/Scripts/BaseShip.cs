@@ -62,12 +62,8 @@ public class BaseShip : MonoBehaviour {
 
         foreach (Transform speaker in speakers)
         {
-            if (speaker.localScale.x > 1)
-            {
-                speaker.localScale *= 0.98f;
-            }
+            speaker.localScale = Vector2.Lerp(speaker.localScale, Vector2.one, 0.2f);
         }
-
 
         t += Time.deltaTime / timeToReachTarget;
         transform.position = Vector3.Lerp(startPosition, target, Easing.Quintic.Out(t));
@@ -83,6 +79,7 @@ public class BaseShip : MonoBehaviour {
         else
         {
             RotateShip(0);
+            shield.transform.Rotate(Vector3.forward * 30 * Time.deltaTime);
         }
 
        
@@ -98,11 +95,14 @@ public class BaseShip : MonoBehaviour {
         Leveling();
     }
 
-    IEnumerator Upgrade()
+    IEnumerator Upgrade(bool wait = true)
     {
         upgrading = true;
-        yield return new WaitForSeconds(0.3f);
-        //transform.Find("ShipSprite").GetComponent<SpriteRenderer>().sprite = ships[level];
+        if (wait)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+
         foreach (Transform speaker in speakers)
         {
             speaker.gameObject.SetActive(speaker.name == "speaker" + level);
@@ -163,7 +163,7 @@ public class BaseShip : MonoBehaviour {
             if (level != 0)
             {
                 level = 0;
-                StartCoroutine(Upgrade());
+                StartCoroutine(Upgrade(false));
             }
         }
     }
@@ -239,6 +239,19 @@ public class BaseShip : MonoBehaviour {
             else
             {
                 Time.timeScale = 0.5f;
+
+                if (level > 0)
+                {
+                    Transform speakerBin = GameObject.Find("speakerBin").transform;
+                    speakerBin.position = transform.position;
+                    foreach (Transform child in speakers.Find("speaker" + level))
+                    {
+                        GameObject droppedSpeaker = Instantiate(child.gameObject, speakerBin);
+                        droppedSpeaker.AddComponent<Rigidbody2D>().AddTorque(Random.Range(-200, 200));
+                    }
+                }
+
+
                 StartCoroutine("ResetTime");
                 lastHitTime = Time.time;
                 foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
@@ -247,6 +260,7 @@ public class BaseShip : MonoBehaviour {
                 }
                 onFail.Invoke();
                 spinning = true;
+
             }
             shieldTime = Time.time;
             StartCoroutine("ReneableCollider");
@@ -258,6 +272,11 @@ public class BaseShip : MonoBehaviour {
         GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(0.5f);
         GetComponent<Collider2D>().enabled = true;
+        yield return new WaitForSeconds(1f);
+        foreach(Transform junkSpeaker in GameObject.Find("speakerBin").transform)
+        {
+            Destroy(junkSpeaker.gameObject);
+        }
     }
 
     IEnumerator ResetTime()

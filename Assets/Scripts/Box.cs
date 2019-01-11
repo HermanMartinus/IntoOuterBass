@@ -20,15 +20,12 @@ public class Box : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(transform.localScale.x > 1)
-        {
-            transform.localScale *= 0.98f;
-        }
+        transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one, 0.2f);
     }
 
     void JumpBeat()
     {
-        transform.localScale = Vector2.one * (platform? 1.5f : 1.2f);
+        transform.localScale = Vector2.one * (platform? 1.6f : 1.4f);
     }
 
 }

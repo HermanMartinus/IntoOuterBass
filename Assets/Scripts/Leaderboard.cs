@@ -10,20 +10,41 @@ public class Leaderboard : MonoBehaviour {
     public List<HighScore> scores = new List<HighScore>();
     [SerializeField] GameObject scorePrefab;
     [SerializeField] GameObject inputObject;
+    [SerializeField] GameObject retryButton;
 
     int points = 0;
-    string trackName = "";
+    public string trackName;
+    public bool viewing = false;
 
     private void Start()
     {
+        if (viewing)
+        {
+            ShowLeaderboard(0, "MenuMusic.wav");
+            inputObject.SetActive(false);
+            retryButton.SetActive(false);
+        }
+
         GetScore();
+
+        if (viewing)
+        {
+            DisplayScores();
+        }
     }
 
     public void ShowLeaderboard (int _points, string _trackName) {
         points = _points;
-        trackName = _trackName;
+        trackName = _trackName.Substring(0, _trackName.LastIndexOf('.'));
         inputObject.SetActive(true);
+        PopulateStats(points, trackName);
 	}
+
+    public void PopulateStats (int points, string trackName)
+    {
+        if(! viewing)
+            inputObject.transform.Find("Stats").GetComponent<Text>().text = trackName + "\n" + points.ToString("00000");
+    }
 
     public void onNameInput(string value)
     {
@@ -79,8 +100,10 @@ public class Leaderboard : MonoBehaviour {
     {
        PlayerPrefs.SetString(trackName, ToJson(scores.ToArray()));
     }
+
     void GetScore()
     {
+        Debug.Log(trackName);
         if (PlayerPrefs.HasKey(trackName))
         {
             HighScore[] retrieved = FromJson<HighScore>(PlayerPrefs.GetString(trackName));

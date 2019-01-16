@@ -15,6 +15,15 @@ public class IntrosManager : MonoBehaviour {
         Invoke("EndScene", (float)videoClip.length);
 	}
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            EndScene();
+        }
+    }
+
+
     void EndScene()
     {
         SceneManager.LoadScene("Selection");

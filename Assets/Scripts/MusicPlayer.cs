@@ -16,6 +16,7 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] [HideInInspector] private int currentIndex = 0;
 
     LoadedClips loadedClips;
+    LoadingBar loadingBar;
 
     private FileInfo[] soundFiles;
     public string absolutePath = "/"; // relative path to where the app is running - change this to "./music" in your case
@@ -24,9 +25,15 @@ public class MusicPlayer : MonoBehaviour
 
     [SerializeField] InputField filePath;
 
-    void Start()
+    void Awake()
     {
         loadedClips = FindObjectOfType<LoadedClips>();
+        loadingBar = FindObjectOfType<LoadingBar>();
+    }
+
+    void Start()
+    {
+
         if (loadedClips.audioFiles.Count == 0)
         {
             if (source == null) source = gameObject.AddComponent<AudioSource>();
@@ -102,6 +109,7 @@ public class MusicPlayer : MonoBehaviour
 
     IEnumerator LoadFile(string path)
     {
+        loadingBar.ShowLoadingBar();
         WWW www = new WWW("file://" + path);
         print("loading " + path);
 

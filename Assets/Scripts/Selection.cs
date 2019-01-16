@@ -15,9 +15,18 @@ public class Selection : MonoBehaviour {
     public AudioClip selectedMusic;
     public List<Transform> buttons = new List<Transform>();
 
-    private void Start()
+    LoadingBar loadingBar;
+
+    void Awake()
+    {
+        loadingBar = FindObjectOfType<LoadingBar>();
+        loadingBar.ShowLoadingBar();
+    }
+
+    void Start()
     {
         FindObjectOfType<AudioProcessor>().onBeat.AddListener(Beat);
+        FindObjectOfType<ScrollRect>().verticalNormalizedPosition = 0.5f;
     }
 
     void Update()
@@ -41,7 +50,6 @@ public class Selection : MonoBehaviour {
 
     public void GenerateList(List<Music> tracks)
     {
-
         foreach (Music track in tracks)
         {
             GameObject spawnedButton = Instantiate(button, grid);
@@ -50,18 +58,13 @@ public class Selection : MonoBehaviour {
             spawnedButton.transform.Find("Backer").GetComponent<Image>().color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
             buttons.Add(spawnedButton.transform);
         }
+        loadingBar.HideLoadingBar();
     }
 
     public void AddTrack(string url)
     {
         FindObjectOfType<MusicPlayer>().LoadThatFile(url);
     }
-
-    public void SetTrack()
-    {
-        SceneManager.LoadScene("Main");
-    }
-
 
     void OnEnable()
     {

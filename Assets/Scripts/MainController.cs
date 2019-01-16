@@ -57,6 +57,7 @@ public class MainController : MonoBehaviour
 
         beatGeneratorAudioSource.clip = activeMusic;
         listenAudioSource.clip = activeMusic;
+        FindObjectOfType<LoadingBar>().HideLoadingBar();
     }
 
     private void Start()

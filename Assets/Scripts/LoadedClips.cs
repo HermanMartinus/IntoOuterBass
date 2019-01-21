@@ -8,15 +8,18 @@ public class LoadedClips : MonoBehaviour {
     public List<Music> audioFiles = new List<Music>();
     public List<Track> tracks = new List<Track>();
 
+    public static LoadedClips Instance = null;
+
     private void Awake()
     {
-        LoadedClips[] objs = FindObjectsOfType<LoadedClips>();
-
-        if (objs.Length > 1)
+        if (Instance == null)
         {
-            Destroy(this.gameObject);
+            Instance = this;
         }
-
-        DontDestroyOnLoad(this.gameObject);
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 }

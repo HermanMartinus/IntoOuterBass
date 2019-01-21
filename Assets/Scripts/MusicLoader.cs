@@ -55,7 +55,11 @@ public class MusicLoader : MonoBehaviour {
         {
             JSONNode jsonSong = N["response"][i];
             Track track = new Track(jsonSong["song_id"], jsonSong["title"], jsonSong["artist"], jsonSong["genre"], jsonSong["artwork_url"], jsonSong["url"], jsonSong["duration"]);
+
             searchResults.Add(track);
+
+            if(track.artwork_url != null)
+                StartCoroutine(LoadArtwork(track));
         }
         onSearchEnd.Invoke();
     }
@@ -127,8 +131,16 @@ public class MusicLoader : MonoBehaviour {
             print("done loading");
             clip.name = loadedTrack.song_id;
             loadedTrack.clip = clip;
-            FindObjectOfType<LoadedClips>().tracks.Add(loadedTrack);
+            LoadedClips.Instance.tracks.Insert(0, loadedTrack);
             onLoadEnd.Invoke();
         }
+    }
+
+    IEnumerator LoadArtwork(Track track)
+    {
+        WWW www = new WWW(track.artwork_url);
+        yield return www;
+        Sprite artwork_sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
+        searchResults[searchResults.FindIndex((obj) => obj.song_id == track.song_id)].artwork_sprite = artwork_sprite;
     }
 }

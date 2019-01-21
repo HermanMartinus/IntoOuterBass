@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using UnityEngine;using UnityEngine.Networking;
 
 [System.Serializable]
 public class Track {
@@ -13,13 +15,15 @@ public class Track {
         this.genre = genre;
         this.artwork_url = artwork_url;
         this.url = url;
-        this.duration = duration/60/1000;
+        this.duration = duration/1000;
     }
+
     public string song_id;
     public string title;
     public string artist;
     public string genre;
     public string artwork_url;
+    public Sprite artwork_sprite;
     public string url;
     public float duration;
     public string clipUrl;

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Networking;
 
 public class MusicPlayer : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class MusicPlayer : MonoBehaviour
     void Start()
     {
 
-        if (loadedClips.audioFiles.Count == 0)
+        if (loadedClips.tracks.Count == 0)
         {
             if (source == null) source = gameObject.AddComponent<AudioSource>();
             if (Application.platform == RuntimePlatform.Android)
@@ -46,7 +47,7 @@ public class MusicPlayer : MonoBehaviour
         }
         else
         {
-            FindObjectOfType<Selection>().GenerateList(loadedClips.audioFiles);
+            FindObjectOfType<Selection>().GenerateList(loadedClips.tracks);
         }
     }
 
@@ -89,7 +90,7 @@ public class MusicPlayer : MonoBehaviour
                 }
 
             }
-            FindObjectOfType<Selection>().GenerateList(loadedClips.audioFiles);
+            FindObjectOfType<Selection>().GenerateList(loadedClips.tracks);
         }
         catch (UnauthorizedAccessException UAEx)
         {
@@ -121,5 +122,33 @@ public class MusicPlayer : MonoBehaviour
         clip.name = Path.GetFileName(path);
         loadedClips.clips.Add(clip);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+    }
+
+    public void LoadThatUrl(string url)
+    {
+        StartCoroutine(LoadFromUrl(url));
+    }
+
+    IEnumerator LoadFromUrl(string url)
+    {
+        print("loading " + url);
+        UnityWebRequest music = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG);
+        yield return music.SendWebRequest();
+
+        if (music.isNetworkError)
+        {
+            Debug.Log(music.error);
+        }
+        else
+        {
+            AudioClip clip = DownloadHandlerAudioClip.GetContent(music);
+            while (!clip.isReadyToPlay)
+                yield return null;
+
+            print("done loading");
+            clip.name = "DunLoad";
+            loadedClips.clips.Add(clip);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+        }
     }
 }

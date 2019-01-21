@@ -52,12 +52,11 @@ public class MainController : MonoBehaviour
     {
         if (FindObjectOfType<LoadedClips>())
         {
-            activeMusic = FindObjectOfType<LoadedClips>().clips[0];
+            activeMusic = FindObjectOfType<LoadedClips>().tracks[0].clip;
         }
 
         beatGeneratorAudioSource.clip = activeMusic;
         listenAudioSource.clip = activeMusic;
-        FindObjectOfType<LoadingBar>().HideLoadingBar();
     }
 
     private void Start()
@@ -231,15 +230,7 @@ public class MainController : MonoBehaviour
 
     public void Menu()
     {
-        if(FindObjectOfType<LoadedClips>())
-        {
-            foreach(AudioClip clip in FindObjectOfType<LoadedClips>().clips)
-            {
-                clip.UnloadAudioData();
-            }
-            FindObjectOfType<LoadedClips>().clips.Clear();
-        }
-        SceneManager.LoadScene("Selection");
+        SceneManager.LoadScene("SearchMenu");
     }
 
     IEnumerator OnSongCompleted()
@@ -257,6 +248,5 @@ public class MainController : MonoBehaviour
         gameUi.SetActive(false);
 
         bassShip.GetComponent<BaseShip>().ended = true;
-        //GameStart();
     }
 }

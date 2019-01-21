@@ -15,14 +15,6 @@ public class Selection : MonoBehaviour {
     public AudioClip selectedMusic;
     public List<Transform> buttons = new List<Transform>();
 
-    LoadingBar loadingBar;
-
-    void Awake()
-    {
-        loadingBar = FindObjectOfType<LoadingBar>();
-        loadingBar.ShowLoadingBar();
-    }
-
     void Start()
     {
         FindObjectOfType<AudioProcessor>().onBeat.AddListener(Beat);
@@ -48,17 +40,16 @@ public class Selection : MonoBehaviour {
         }
     }
 
-    public void GenerateList(List<Music> tracks)
+    public void GenerateList(List<Track> tracks)
     {
-        foreach (Music track in tracks)
-        {
-            GameObject spawnedButton = Instantiate(button, grid);
-            spawnedButton.GetComponentInChildren<Text>().text = track.name;
-            spawnedButton.GetComponent<Button>().onClick.AddListener(delegate { AddTrack(track.url); });
-            spawnedButton.transform.Find("Backer").GetComponent<Image>().color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
-            buttons.Add(spawnedButton.transform);
-        }
-        loadingBar.HideLoadingBar();
+        //foreach (Music track in tracks)
+        //{
+        //    GameObject spawnedButton = Instantiate(button, grid);
+        //    spawnedButton.GetComponentInChildren<Text>().text = track.name;
+        //    spawnedButton.GetComponent<Button>().onClick.AddListener(delegate { AddTrack(track.url); });
+        //    spawnedButton.transform.Find("Backer").GetComponent<Image>().color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+        //    buttons.Add(spawnedButton.transform);
+        //}
     }
 
     public void AddTrack(string url)

@@ -35,7 +35,8 @@ public class Leaderboard : MonoBehaviour {
 
     public void ShowLeaderboard (int _points, string _trackName) {
         points = _points;
-        trackName = _trackName.Substring(0, _trackName.LastIndexOf('.'));
+        //trackName = _trackName.Substring(0, _trackName.LastIndexOf('.'));
+        trackName = _trackName;
         inputObject.SetActive(true);
         PopulateStats(points, trackName);
 	}
@@ -132,15 +133,7 @@ public class Leaderboard : MonoBehaviour {
 
     public void Menu ()
     {
-        if (FindObjectOfType<LoadedClips>())
-        {
-            foreach (AudioClip clip in FindObjectOfType<LoadedClips>().clips)
-            {
-                clip.UnloadAudioData();
-            }
-            FindObjectOfType<LoadedClips>().clips.Clear();
-        }
-        SceneManager.LoadScene("Selection");
+        SceneManager.LoadScene("SearchMenu");
     }
 
     public void Retry()

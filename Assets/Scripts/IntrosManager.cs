@@ -26,6 +26,6 @@ public class IntrosManager : MonoBehaviour {
 
     void EndScene()
     {
-        SceneManager.LoadScene("Selection");
+        SceneManager.LoadScene("SearchMenu");
     }
 }

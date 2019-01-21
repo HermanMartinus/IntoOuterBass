@@ -6,6 +6,7 @@ public class LoadedClips : MonoBehaviour {
 
     public List<AudioClip> clips = new List<AudioClip>();
     public List<Music> audioFiles = new List<Music>();
+    public List<Track> tracks = new List<Track>();
 
     private void Awake()
     {

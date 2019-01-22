@@ -13,14 +13,13 @@ public class Leaderboard : MonoBehaviour {
     [SerializeField] GameObject retryButton;
 
     int points = 0;
-    public string trackName;
     public bool viewing = false;
 
     private void Start()
     {
         if (viewing)
         {
-            ShowLeaderboard(0, "MenuMusic.wav");
+            ShowLeaderboard();
             inputObject.SetActive(false);
             retryButton.SetActive(false);
         }
@@ -33,18 +32,16 @@ public class Leaderboard : MonoBehaviour {
         }
     }
 
-    public void ShowLeaderboard (int _points, string _trackName) {
+    public void ShowLeaderboard (int _points = 0) {
         points = _points;
-        //trackName = _trackName.Substring(0, _trackName.LastIndexOf('.'));
-        trackName = _trackName;
         inputObject.SetActive(true);
-        PopulateStats(points, trackName);
+        PopulateStats(points);
 	}
 
-    public void PopulateStats (int points, string trackName)
+    public void PopulateStats (int points)
     {
         if(! viewing)
-            inputObject.transform.Find("Stats").GetComponent<Text>().text = trackName + "\n" + points.ToString("00000");
+            inputObject.transform.Find("Stats").GetComponent<Text>().text = LoadedClips.Instance.selectedTrack.title + "\n" + points.ToString("00000");
     }
 
     public void onNameInput(string value)
@@ -99,15 +96,15 @@ public class Leaderboard : MonoBehaviour {
 
     void SetScore()
     {
-       PlayerPrefs.SetString(trackName, ToJson(scores.ToArray()));
+       PlayerPrefs.SetString(LoadedClips.Instance.selectedTrack.song_id, ToJson(scores.ToArray()));
     }
 
     void GetScore()
     {
-        Debug.Log(trackName);
-        if (PlayerPrefs.HasKey(trackName))
+        Debug.Log(LoadedClips.Instance.selectedTrack.song_id);
+        if (PlayerPrefs.HasKey(LoadedClips.Instance.selectedTrack.song_id))
         {
-            HighScore[] retrieved = FromJson<HighScore>(PlayerPrefs.GetString(trackName));
+            HighScore[] retrieved = FromJson<HighScore>(PlayerPrefs.GetString(LoadedClips.Instance.selectedTrack.song_id));
             scores = retrieved.ToList();
         }
     }

@@ -50,10 +50,8 @@ public class MainController : MonoBehaviour
 
     private void Awake()
     {
-        if (FindObjectOfType<LoadedClips>())
-        {
-            activeMusic = FindObjectOfType<LoadedClips>().tracks[0].clip;
-        }
+
+        activeMusic = LoadedClips.Instance.tracks[0].clip;
 
         beatGeneratorAudioSource.clip = activeMusic;
         listenAudioSource.clip = activeMusic;
@@ -238,12 +236,12 @@ public class MainController : MonoBehaviour
         yield return new WaitForSecondsRealtime(clipLength+5);
         playing = false;
         ended = true;
-        ShowLeaderBoard();
+        ShowLeaderBoard(); 
     }
 
     void ShowLeaderBoard()
     {
-        leaderBoard.GetComponent<Leaderboard>().ShowLeaderboard(FindObjectOfType<Score>().score, activeMusic.name);
+        leaderBoard.GetComponent<Leaderboard>().ShowLeaderboard(FindObjectOfType<Score>().score);
         leaderBoard.SetActive(true);
         gameUi.SetActive(false);
 

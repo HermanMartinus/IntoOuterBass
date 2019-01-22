@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 using SimpleJSON;
+using System.Linq;
+using System;
 
 public class MusicLoader : MonoBehaviour {
 
@@ -21,11 +23,18 @@ public class MusicLoader : MonoBehaviour {
 
     public Track loadedTrack;
 
+    public static MusicLoader Instance;
+
     struct Query
     {
         public string q;
         public string song_id;
         public int page_size;
+    }
+
+    public void Awake()
+    {
+        Instance = this;
     }
 
     public void SearchForTracks(string query)
@@ -88,25 +97,6 @@ public class MusicLoader : MonoBehaviour {
         StartCoroutine(LoadFromUrl(loadedTrack.clipUrl));
     }
 
-    public void LoadThatFile(string path)
-    {
-        StartCoroutine(LoadFromFile(path));
-    }
-
-    IEnumerator LoadFromFile(string path)
-    {
-        WWW www = new WWW("file://" + path);
-        print("loading " + path);
-
-        AudioClip clip = www.GetAudioClip(false);
-        while (!clip.isReadyToPlay)
-            yield return www;
-
-        print("done loading");
-        clip.name = Path.GetFileName(path);
-        FindObjectOfType<LoadedClips>().clips.Add(clip);
-    }
-
     public void LoadThatUrl(string url)
     {
         StartCoroutine(LoadFromUrl(url));
@@ -118,12 +108,14 @@ public class MusicLoader : MonoBehaviour {
         UnityWebRequest music = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG);
         yield return music.SendWebRequest();
 
+
         if (music.isNetworkError)
         {
             Debug.Log(music.error);
         }
         else
         {
+
             AudioClip clip = DownloadHandlerAudioClip.GetContent(music);
             while (!clip.isReadyToPlay)
                 yield return null;
@@ -142,5 +134,57 @@ public class MusicLoader : MonoBehaviour {
         yield return www;
         Sprite artwork_sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
         searchResults[searchResults.FindIndex((obj) => obj.song_id == track.song_id)].artwork_sprite = artwork_sprite;
+    }
+
+    public void GetFiles(string path)
+    {
+        // "/storage/emulated/0/" -- Android
+        List<string> fileList = new List<string>();
+
+        try
+        {
+
+            IEnumerable<string> files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
+                .Where(s => s.EndsWith(".mp3") || s.EndsWith(".wav") || s.EndsWith(".aif") || s.EndsWith(".ogg"));
+
+            foreach (string f in files)
+            {
+                FileInfo file = new FileInfo(f);
+                long fileSize = file.Length;
+                if (fileSize / 1024 > 1024)
+                {
+                    string trackName = f.Substring(f.LastIndexOf('/') + 1);
+                    trackName = trackName.Substring(0, trackName.LastIndexOf('.'));
+                    Debug.Log(trackName);
+                }
+
+            }
+        }
+        catch (UnauthorizedAccessException UAEx)
+        {
+            Console.WriteLine(UAEx.Message);
+        }
+        catch (PathTooLongException PathEx)
+        {
+            Console.WriteLine(PathEx.Message);
+        }
+    }
+
+    public void LoadThatFile(string path)
+    {
+        StartCoroutine(LoadFromFile(path));
+    }
+
+    IEnumerator LoadFromFile(string path)
+    {
+        WWW www = new WWW("file://" + path);
+        print("loading " + path);
+
+        AudioClip clip = www.GetAudioClip(false);
+        while (!clip.isReadyToPlay)
+            yield return www;
+
+        print("done loading");
+        clip.name = Path.GetFileName(path);
     }
 }

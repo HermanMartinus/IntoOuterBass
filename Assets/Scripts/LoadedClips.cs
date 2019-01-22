@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LoadedClips : MonoBehaviour {
-
+    public List<Track> searchResults = new List<Track>();
     public List<Track> tracks = new List<Track>();
     public Track selectedTrack;
 

@@ -14,7 +14,7 @@ public class MainController : MonoBehaviour
     [SerializeField] AudioSource beatGeneratorAudioSource;
     [SerializeField] AudioSource listenAudioSource;
     [SerializeField] List<Sprite> boxes;
-    public float difficulty = 0.8f;
+
     public AudioClip activeMusic;
     public float platformDropTimer = 0.2f;
     public float beatTimeDifference = 2f;
@@ -51,7 +51,7 @@ public class MainController : MonoBehaviour
     private void Awake()
     {
 
-        activeMusic = LoadedClips.Instance.tracks[0].clip;
+        activeMusic = LoadedClips.Instance.selectedTrack.clip;
 
         beatGeneratorAudioSource.clip = activeMusic;
         listenAudioSource.clip = activeMusic;
@@ -207,7 +207,7 @@ public class MainController : MonoBehaviour
             float percentageCompleted = Mathf.Abs(((timeLeft / clipLength) - 1));
          
             if (!bassShip.GetComponent<BaseShip>().spinning)
-                Time.timeScale = 1 + (percentageCompleted * difficulty);
+                Time.timeScale = 1 + (percentageCompleted * Difficulty.difficulty);
                 
             holeSize = holeSizeRange.x - percentageCompleted * (holeSizeRange.x - holeSizeRange.y);
         }

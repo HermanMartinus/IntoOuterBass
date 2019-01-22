@@ -12,6 +12,7 @@ public class SearchMenu : MonoBehaviour
     [SerializeField] InputField searchInput;
     [SerializeField] Text decorationText;
     [SerializeField] Image artworkImage;
+    [SerializeField] GameObject leaderboard;
 
     public Track selectedTrack;
 
@@ -32,20 +33,29 @@ public class SearchMenu : MonoBehaviour
 
     public void UpdateMenu()
     {
-        LoadedClips.Instance.selectedTrack = MusicLoader.Instance.searchResults[0];
-        SetDecorations();
-
-        foreach (Track track in MusicLoader.Instance.searchResults)
+        if(LoadedClips.Instance.searchResults.Count > 0)
         {
-            GameObject spawnedButton = Instantiate(cassettePrefab, scrollContent);
-            spawnedButton.GetComponentInChildren<Text>().text = track.title;
-            spawnedButton.transform.Find("Backer").GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            LoadedClips.Instance.selectedTrack = LoadedClips.Instance.searchResults[0];
+            SetDecorations();
+
+            foreach (Track track in LoadedClips.Instance.searchResults)
+            {
+                GameObject spawnedButton = Instantiate(cassettePrefab, scrollContent);
+                spawnedButton.GetComponentInChildren<Text>().text = track.title;
+                spawnedButton.transform.Find("Backer").GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            }
         }
+        else
+        {
+            decorationText.text = "";
+            artworkImage.sprite = null;
+        }
+
     }
 
     public void OnItemSelected()
     {
-        LoadedClips.Instance.selectedTrack = MusicLoader.Instance.searchResults[ScrollViewSnapper.selectedIndex];
+        LoadedClips.Instance.selectedTrack = LoadedClips.Instance.searchResults[ScrollViewSnapper.selectedIndex];
         SetDecorations();
     }
 
@@ -61,7 +71,13 @@ public class SearchMenu : MonoBehaviour
 
     public void LoadSong()
     {
-        MusicLoader.Instance.FetchTrack(selectedTrack);
+        if (LoadedClips.Instance.tracks.Find((obj) => obj.song_id == selectedTrack.song_id) == null)
+            MusicLoader.Instance.FetchTrack(selectedTrack);
+        else
+        {
+            LoadedClips.Instance.selectedTrack = LoadedClips.Instance.tracks.Find((obj) => obj.song_id == selectedTrack.song_id);
+            SongLoaded();
+        }
     }
 
     public void SongLoaded()
@@ -71,6 +87,6 @@ public class SearchMenu : MonoBehaviour
 
     public void Leaderboard()
     {
-        SceneManager.LoadScene("Leaderboard");
+        leaderboard.SetActive(true);
     }
 }

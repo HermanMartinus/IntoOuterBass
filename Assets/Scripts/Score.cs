@@ -41,7 +41,7 @@ public class Score : MonoBehaviour {
     {
         if (!mainController.playing)
             return;
-        score += jumpPoints * (bassShip.level+1);
+        score += Mathf.RoundToInt(jumpPoints * (bassShip.level+1) * Difficulty.difficulty);
         GetComponent<Text>().color = levelColors[bassShip.level];
         if(bassShip.level == 5)
         {

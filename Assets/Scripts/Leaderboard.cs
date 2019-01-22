@@ -15,7 +15,7 @@ public class Leaderboard : MonoBehaviour {
     int points = 0;
     public bool viewing = false;
 
-    private void Start()
+    private void OnEnable()
     {
         if (viewing)
         {
@@ -130,7 +130,18 @@ public class Leaderboard : MonoBehaviour {
 
     public void Menu ()
     {
-        SceneManager.LoadScene("SearchMenu");
+        if(viewing)
+        {
+            foreach(Transform t in transform.Find("Grid"))
+            {
+                Destroy(t.gameObject);
+            }
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            SceneManager.LoadScene("SearchMenu");
+        }
     }
 
     public void Retry()

@@ -12,7 +12,6 @@ public class MusicLoader : MonoBehaviour {
 
     public string searchQuery = "";
 
-    public List<Track> searchResults = new List<Track>();
     public OnSearchEndEventHandler onSearchEnd;
     [System.Serializable]
     public class OnSearchEndEventHandler : UnityEngine.Events.UnityEvent{}
@@ -44,6 +43,8 @@ public class MusicLoader : MonoBehaviour {
 
     IEnumerator Search(string _query)
     {
+        LoadingScreen.Instance.Show();
+
         Debug.Log("Searching " + _query);
         Query query = new Query();
         query.q = _query;
@@ -59,28 +60,35 @@ public class MusicLoader : MonoBehaviour {
         yield return www.SendWebRequest();
         var N = JSON.Parse(www.downloadHandler.text);
 
-        searchResults.Clear();
+        LoadedClips.Instance.searchResults.Clear();
         for(int i = 0; i<N["response"].Count; i++)
         {
             JSONNode jsonSong = N["response"][i];
             Track track = new Track(jsonSong["song_id"], jsonSong["title"], jsonSong["artist"], jsonSong["genre"], jsonSong["artwork_url"], jsonSong["url"], jsonSong["duration"]);
 
-            searchResults.Add(track);
+            LoadedClips.Instance.searchResults.Add(track);
 
             if(track.artwork_url != null)
                 StartCoroutine(LoadArtwork(track));
         }
         onSearchEnd.Invoke();
+
+        LoadingScreen.Instance.Hide();
     }
 
     public void FetchTrack(Track track)
     {
         loadedTrack = track;
-        StartCoroutine(FetchSongUrl(track.song_id));
+        if (!track.clip)
+            StartCoroutine(FetchSongUrl(track.song_id));
+        else
+            onLoadEnd.Invoke();
     }
 
     IEnumerator FetchSongUrl(string song_id)
     {
+        LoadingScreen.Instance.Show();
+
         Query query = new Query();
         query.song_id = song_id;
         string jsonStringTrial = JsonUtility.ToJson(query);
@@ -95,6 +103,7 @@ public class MusicLoader : MonoBehaviour {
         var N = JSON.Parse(www.downloadHandler.text);
         loadedTrack.clipUrl = N["response"];
         StartCoroutine(LoadFromUrl(loadedTrack.clipUrl));
+
     }
 
     public void LoadThatUrl(string url)
@@ -104,6 +113,7 @@ public class MusicLoader : MonoBehaviour {
 
     IEnumerator LoadFromUrl(string url)
     {
+
         print("loading " + url);
         UnityWebRequest music = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG);
         yield return music.SendWebRequest();
@@ -126,6 +136,8 @@ public class MusicLoader : MonoBehaviour {
             LoadedClips.Instance.tracks.Insert(0, loadedTrack);
             onLoadEnd.Invoke();
         }
+
+        LoadingScreen.Instance.Hide();
     }
 
     IEnumerator LoadArtwork(Track track)
@@ -133,7 +145,7 @@ public class MusicLoader : MonoBehaviour {
         WWW www = new WWW(track.artwork_url);
         yield return www;
         Sprite artwork_sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
-        searchResults[searchResults.FindIndex((obj) => obj.song_id == track.song_id)].artwork_sprite = artwork_sprite;
+        LoadedClips.Instance.searchResults[LoadedClips.Instance.searchResults.FindIndex((obj) => obj.song_id == track.song_id)].artwork_sprite = artwork_sprite;
     }
 
     public void GetFiles(string path)

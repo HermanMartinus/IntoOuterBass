@@ -8,15 +8,11 @@ using System.Linq;
 /// Make sure to plug in the _topLine and _bottomLine line renderers
 public class WaveGenerator : MonoBehaviour
 {
-    AudioSource _audioSource;
+    [SerializeField] AudioSource _audioSource;
     const int SpectrumSize = 8192;
     readonly float[] _spectrum = new float[SpectrumSize];
     [SerializeField] List<LineRenderer> lines;
 
-    public void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
 
     public void Update()
     {

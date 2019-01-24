@@ -32,23 +32,15 @@ public class BaseShip : MonoBehaviour {
 
     public OnJumpEventHandler onJump;
     [System.Serializable]
-    public class OnJumpEventHandler : UnityEngine.Events.UnityEvent
-    {
-
-    }
+    public class OnJumpEventHandler : UnityEngine.Events.UnityEvent {}
 
     public OnFailEventHandler onFail;
     [System.Serializable]
-    public class OnFailEventHandler : UnityEngine.Events.UnityEvent
-    {
-
-    }
+    public class OnFailEventHandler : UnityEngine.Events.UnityEvent {}
 
     // Use this for initialization
     void Start ()
     {
-        FindObjectOfType<MainController>().onJumpBeat.AddListener(JumpBeat);
-        FindObjectOfType<MainController>().onBeat.AddListener(StandardBeat);
         rb = GetComponent<Rigidbody2D>();
         lastHitTime = Time.time;
         level = 0;
@@ -189,7 +181,7 @@ public class BaseShip : MonoBehaviour {
         transform.rotation = Quaternion.RotateTowards(currentRotation, wantedRotation, Time.deltaTime * rotateSpeed);
     }
 
-    void JumpBeat ()
+    public void JumpBeat ()
     {
         if (testing)
         {
@@ -198,7 +190,7 @@ public class BaseShip : MonoBehaviour {
         }
     }
 
-    void StandardBeat ()
+    public void ActualBeat ()
     {
         foreach(Transform speaker in speakers)
         {

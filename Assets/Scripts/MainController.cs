@@ -11,8 +11,7 @@ public class MainController : MonoBehaviour
     [SerializeField] GameObject box;
     [SerializeField] GameObject platform;
 
-    [SerializeField] AudioSource beatGeneratorAudioSource;
-    [SerializeField] AudioSource listenAudioSource;
+    [SerializeField] BeatManager beatManager;
     [SerializeField] List<Sprite> boxes;
 
     public AudioClip activeMusic;
@@ -21,9 +20,7 @@ public class MainController : MonoBehaviour
     public Vector2 holeSizeRange = new Vector2(1.3f, 0.7f);
     float holeSize = 1.5f;
     bool altenator = false;
-    public float cooldownTime = 0.5f;
     public float boxSpeed = 1f;
-    bool canSpawn = true;
     float clipLength;
     float startTime;
     public bool playing = false;
@@ -33,28 +30,10 @@ public class MainController : MonoBehaviour
     [SerializeField] GameObject leaderBoard;
     [SerializeField] GameObject gameUi;
 
-    [Header("Events")]
-    public OnJumpBeatEventHandler onJumpBeat;
-    [System.Serializable]
-    public class OnJumpBeatEventHandler : UnityEngine.Events.UnityEvent
-    {
-
-    }
-    [Header("Events")]
-    public OnBeatEventHandler onBeat;
-    [System.Serializable]
-    public class OnBeatEventHandler : UnityEngine.Events.UnityEvent
-    {
-
-    }
-
     private void Awake()
     {
-
         activeMusic = LoadedClips.Instance.selectedTrack.clip;
-
-        beatGeneratorAudioSource.clip = activeMusic;
-        listenAudioSource.clip = activeMusic;
+        beatManager.SetClip(activeMusic);
     }
 
     private void Start()
@@ -65,15 +44,11 @@ public class MainController : MonoBehaviour
     void GameStart ()
 	{
         playing = true;
-		AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
-		processor.onBeat.AddListener (onOnbeatDetected);
-		processor.onSpectrum.AddListener (onSpectrum);
 
-        beatGeneratorAudioSource.Play();
-        listenAudioSource.PlayDelayed(beatTimeDifference);
+        beatManager.Play();
 
         startTime = Time.time;
-        clipLength = activeMusic.length;
+        clipLength = LoadedClips.Instance.selectedTrack.duration;
 
         StartCoroutine("OnSongCompleted");
         timeLeft = clipLength;
@@ -137,50 +112,20 @@ public class MainController : MonoBehaviour
         }
     }
     
-    public void onOnbeatDetected ()
+    public void PreBeat ()
 	{
-        StartCoroutine("StandardBeat");
-        if (canSpawn)
-        {
+        GameObject spawnedBox = Instantiate(box);
+        spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 2f) : -Random.Range(1.1f, 2f), 7.4f);
+        spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
+        spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count)];
+        Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
 
-            //Debug.Log("Beat!!!");
-            GameObject spawnedBox = Instantiate(box);
-            spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 2f) : -Random.Range(1.1f, 2f), 7.4f);
-            spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
-            spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count)];
-            Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
-
-            spawnedBox.GetComponent<Rigidbody2D>().AddTorque(direction.x * 1);
+        spawnedBox.GetComponent<Rigidbody2D>().AddTorque(direction.x * 1);
 
 
-            RemovePlatform(new Vector2(0, 7f));
+        RemovePlatform(new Vector2(0, 7f));
 
-            StartCoroutine("JumpBeat", altenator);
-            altenator = !altenator;
-
-            StartCoroutine("Cooldown");
-        }
-    }
-
-    IEnumerator Cooldown()
-    {
-        canSpawn = false;
-        yield return new WaitForSeconds(cooldownTime);
-        canSpawn = true;
-    }
-
-    IEnumerator StandardBeat()
-    {
-
-        yield return new WaitForSeconds(beatTimeDifference);
-        onBeat.Invoke();
-    }
-
-    IEnumerator JumpBeat(bool _altenator)
-    {
-        yield return new WaitForSeconds(beatTimeDifference);
-        //Debug.Log("Jump Beat");
-        onJumpBeat.Invoke();
+        altenator = !altenator;
     }
 
     void RemovePlatform(Vector2 boxPosition)
@@ -202,26 +147,13 @@ public class MainController : MonoBehaviour
         if (playing)
         {
             float percentageCompleted = Mathf.Abs(((timeLeft / clipLength) - 1));
-         
+            //Time.timeScale = 1;
             if (!bassShip.GetComponent<BaseShip>().spinning)
                 Time.timeScale = 1 + (percentageCompleted * Difficulty.difficulty);
                 
             holeSize = holeSizeRange.x - percentageCompleted * (holeSizeRange.x - holeSizeRange.y);
         }
     }
-
-    //This event will be called every frame while music is playing
-    public void onSpectrum (float[] spectrum)
-	{
-		//The spectrum is logarithmically averaged
-		//to 12 bands
-
-		for (int i = 0; i < spectrum.Length; ++i) {
-			Vector3 start = new Vector3 (i, 0, 0);
-			Vector3 end = new Vector3 (i, spectrum [i], 0);
-			Debug.DrawLine (start, end);
-		}
-	}
 
     public void Menu()
     {

@@ -9,11 +9,11 @@ public class Box : MonoBehaviour {
 	void Start () {
         if (platform)
         {
-            FindObjectOfType<MainController>().onBeat.AddListener(JumpBeat);
+            BeatManager.Instance.onActualBeat.AddListener(JumpBeat);
         }
         else
         {
-            FindObjectOfType<MainController>().onJumpBeat.AddListener(JumpBeat);
+            BeatManager.Instance.onJumpBeat.AddListener(JumpBeat);
         }
 
     }

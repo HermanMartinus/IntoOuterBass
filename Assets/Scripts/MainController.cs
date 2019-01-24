@@ -136,10 +136,7 @@ public class MainController : MonoBehaviour
             }
         }
     }
-
-    //this event will be called every time a beat is detected.
-    //Change the threshold parameter in the inspector
-    //to adjust the sensitivity
+    
     public void onOnbeatDetected ()
 	{
         StartCoroutine("StandardBeat");
@@ -165,20 +162,6 @@ public class MainController : MonoBehaviour
         }
     }
 
-    void RemovePlatform(Vector2 boxPosition)
-    {
-        foreach (GameObject t in GameObject.FindGameObjectsWithTag("Platform"))
-        {
-            float distance = Vector3.Distance(t.transform.position, boxPosition);
-
-            if (distance < holeSize)
-            {
-                Destroy(t);
-            }
-        }
-
-    }
-
     IEnumerator Cooldown()
     {
         canSpawn = false;
@@ -198,6 +181,20 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(beatTimeDifference);
         //Debug.Log("Jump Beat");
         onJumpBeat.Invoke();
+    }
+
+    void RemovePlatform(Vector2 boxPosition)
+    {
+        foreach (GameObject t in GameObject.FindGameObjectsWithTag("Platform"))
+        {
+            float distance = Vector3.Distance(t.transform.position, boxPosition);
+
+            if (distance < holeSize)
+            {
+                Destroy(t);
+            }
+        }
+
     }
 
     void DificultyIncreaser()

@@ -688,7 +688,6 @@ GameObject:
   m_Component:
   - component: {fileID: 723663529}
   - component: {fileID: 723663528}
-  - component: {fileID: 723663530}
   m_Layer: 0
   m_Name: MainController
   m_TagString: Untagged
@@ -737,7 +736,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0de621347566f4e67b1001cbe0cf4af2, type: 3}
   - {fileID: 21300000, guid: ecbf3829ecd134ea38049f892338e208, type: 3}
   - {fileID: 21300000, guid: 744b6890de60746f0a5b23eee9dee130, type: 3}
-  difficulty: 0.8
   activeMusic: {fileID: 8300000, guid: ca4753e4d64e1410bbd7757bd744e89a, type: 3}
   platformDropTimer: 2
   beatTimeDifference: 2.65
@@ -771,17 +769,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &723663530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 723663527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b568ac49e60314f3999e39f0952ce67c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &741004104
 GameObject:
   m_ObjectHideFlags: 0

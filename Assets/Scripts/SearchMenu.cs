@@ -12,6 +12,7 @@ public class SearchMenu : MonoBehaviour
     [SerializeField] InputField searchInput;
     [SerializeField] Text decorationText;
     [SerializeField] Image artworkImage;
+    [SerializeField] Sprite artworkPlaceholder;
     [SerializeField] GameObject leaderboard;
 
     public Track selectedTrack;
@@ -66,7 +67,14 @@ public class SearchMenu : MonoBehaviour
         string artist = selectedTrack.artist != null && selectedTrack.artist.Length > 0 ? "\nArtist: " + selectedTrack.artist : "";
         string genre = selectedTrack.genre != null && selectedTrack.genre.Length > 0 ? "\nGenre: " + selectedTrack.genre : "";
         decorationText.text = "Duration: " + duruation  + artist + genre + "\n" + selectedTrack.url;
-        artworkImage.sprite = selectedTrack.artwork_sprite;
+        if (selectedTrack.artwork_sprite == null)
+        {
+            artworkImage.sprite = artworkPlaceholder;
+        }
+        else
+        {
+            artworkImage.sprite = selectedTrack.artwork_sprite;
+        }
     }
 
     public void LoadSong()

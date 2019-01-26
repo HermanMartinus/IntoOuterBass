@@ -50,7 +50,6 @@ public class MainController : MonoBehaviour
         startTime = Time.time;
         clipLength = LoadedClips.Instance.selectedTrack.duration;
 
-        StartCoroutine("OnSongCompleted");
         timeLeft = clipLength;
         StartCoroutine("InvokeUpdateRealtime");
 	}
@@ -99,6 +98,11 @@ public class MainController : MonoBehaviour
         }
 
         DificultyIncreaser();
+
+        if (!ended && !BeatManager.Instance.IsPlaying())
+        {
+            SongCompleted();
+        }
     }
 
     void DestroyAll(GameObject [] objects, float yThreshold)
@@ -160,9 +164,8 @@ public class MainController : MonoBehaviour
         SceneManager.LoadScene("SearchMenu");
     }
 
-    IEnumerator OnSongCompleted()
+    void SongCompleted()
     {
-        yield return new WaitForSecondsRealtime(clipLength+5);
         playing = false;
         ended = true;
         ShowLeaderBoard(); 

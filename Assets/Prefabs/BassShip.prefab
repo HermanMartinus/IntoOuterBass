@@ -871,6 +871,30 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: BaseShip+OnFailEventHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -2.071882
+      outSlope: -2.071882
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.057112068
+    - serializedVersion: 3
+      time: 1.0010986
+      value: 1
+      inSlope: -1.6142424
+      outSlope: -1.6142424
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05599403
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!120 &120060149764178854
 LineRenderer:
   m_ObjectHideFlags: 1

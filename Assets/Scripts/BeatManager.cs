@@ -86,4 +86,9 @@ public class BeatManager : MonoBehaviour
         yield return new WaitForSeconds(cooldownTime);
         canSpawn = true;
     }
+
+    public bool IsPlaying()
+    {
+        return actualBeatAudioSource.isPlaying;
+    }
 }

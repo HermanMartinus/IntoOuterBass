@@ -38,6 +38,8 @@ public class BaseShip : MonoBehaviour {
     [System.Serializable]
     public class OnFailEventHandler : UnityEngine.Events.UnityEvent {}
 
+    public AnimationCurve jumpCurve;
+
     // Use this for initialization
     void Start ()
     {
@@ -59,6 +61,7 @@ public class BaseShip : MonoBehaviour {
 
         t += Time.deltaTime / timeToReachTarget;
         transform.position = Vector3.Lerp(startPosition, target, Easing.Quintic.Out(t));
+        //transform.position = Vector3.Lerp(startPosition, target, jumpCurve.Evaluate(t));
 
         if (spinning)
         {

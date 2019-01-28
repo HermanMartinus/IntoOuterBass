@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 58127280131187598}
   - component: {fileID: 114849276039781050}
   m_Layer: 0
-  m_Name: Box
+  m_Name: Obsticle
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

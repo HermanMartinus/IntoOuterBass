@@ -58,6 +58,7 @@ public class SearchMenu : MonoBehaviour
     {
         LoadedClips.Instance.selectedTrack = LoadedClips.Instance.searchResults[ScrollViewSnapper.selectedIndex];
         SetDecorations();
+        SoundManager.Instance.PlaySoundEffect("ButtonClick", volume: 0.5f);
     }
 
     void SetDecorations()
@@ -75,6 +76,11 @@ public class SearchMenu : MonoBehaviour
         {
             artworkImage.sprite = selectedTrack.artwork_sprite;
         }
+    }
+
+    public void OnInputChange()
+    {
+        SoundManager.Instance.PlaySoundEffect("Blop", volume:0.5f);
     }
 
     public void LoadSong()

@@ -41,7 +41,7 @@ public class Leaderboard : MonoBehaviour {
     public void PopulateStats (int points)
     {
         if(! viewing)
-            inputObject.transform.Find("Stats").GetComponent<Text>().text = LoadedClips.Instance.selectedTrack.title + "\n" + points.ToString("00000");
+            inputObject.transform.Find("Stats").GetComponent<Text>().text = LoadedClips.Instance.selectedTrack.title + "\n" + points.ToString("000000");
     }
 
     public void onNameInput(string value)
@@ -65,7 +65,7 @@ public class Leaderboard : MonoBehaviour {
 
             GameObject spawnedScore = Instantiate(scorePrefab, transform.Find("Grid"));
             spawnedScore.transform.Find("Rank").GetComponent<Text>().text = score.rank == "" ? AddOrdinal(index) : score.rank;
-            spawnedScore.transform.Find("Score").GetComponent<Text>().text = score.points.ToString("00000");
+            spawnedScore.transform.Find("Score").GetComponent<Text>().text = score.points.ToString("000000");
             spawnedScore.transform.Find("Initials").GetComponent<Text>().text = score.initials;
             if(scoreIndex != null && index-1 == scoreIndex)
             {
@@ -136,6 +136,7 @@ public class Leaderboard : MonoBehaviour {
             {
                 Destroy(t.gameObject);
             }
+            scores = new List<HighScore>();
             gameObject.SetActive(false);
         }
         else

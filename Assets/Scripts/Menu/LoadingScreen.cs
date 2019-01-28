@@ -9,6 +9,8 @@ public class LoadingScreen : MonoBehaviour {
 
     [SerializeField] GameObject content;
 
+    public List<string> tips = new List<string>();
+
 	// Use this for initialization
 	void Start () {
         Instance = this;
@@ -16,6 +18,7 @@ public class LoadingScreen : MonoBehaviour {
     }
 	
 	public void Show () {
+        content.GetComponentInChildren<Text>().text = tips[Random.Range(0, tips.Count)];
         content.SetActive(true);
     }
 

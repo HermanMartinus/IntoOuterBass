@@ -34,7 +34,7 @@ public class Score : MonoBehaviour {
 
         transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one, 0.2f);
 
-        GetComponent<Text>().text = score.ToString("00000");
+        GetComponent<Text>().text = score.ToString("000000");
 	}
 
     void Jump()

@@ -7,7 +7,7 @@ public class Difficulty : MonoBehaviour {
 
     Slider slider;
 
-    public static float difficulty = 3f;
+    public static float difficulty = 5f;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +17,6 @@ public class Difficulty : MonoBehaviour {
 	
 	public void UpdateValue () {
         difficulty = slider.value;
-        Debug.Log(difficulty);
+        SoundManager.Instance.PlaySoundEffect("Click");
     }
 }

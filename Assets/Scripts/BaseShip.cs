@@ -284,7 +284,7 @@ public class BaseShip : MonoBehaviour {
     IEnumerator ResetTime()
     {
         yield return new WaitForSeconds(0.5f);
-        //FindObjectOfType<MainController>().ResetDifficulty();
+
         foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
         {
             audioSource.pitch = 1;

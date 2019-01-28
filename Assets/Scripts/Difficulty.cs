@@ -7,16 +7,16 @@ public class Difficulty : MonoBehaviour {
 
     Slider slider;
 
-    public static float difficulty = 0.6f;
+    public static float difficulty = 3f;
 
 	// Use this for initialization
 	void Start () {
         slider = GetComponent<Slider>();
-        slider.value = difficulty/2;
+        slider.value = difficulty;
 	}
 	
 	public void UpdateValue () {
-        difficulty = slider.value*2;
+        difficulty = slider.value;
         Debug.Log(difficulty);
     }
 }

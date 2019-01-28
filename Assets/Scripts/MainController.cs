@@ -12,10 +12,11 @@ public class MainController : MonoBehaviour
     [SerializeField] GameObject platform;
     [SerializeField] BeatManager beatManager;
     [SerializeField] List<Sprite> boxes;
+    [SerializeField] List<GameObject> obsticles;
 
     public AudioClip activeMusic;
-    public float platformDropTimer = 0.2f;
-    float dropTime;
+    public float timeBetweenPlatforms = 0.2f;
+    float dropTime = 0.2f;
 
     public Vector2 holeSizeRange = new Vector2(1.3f, 0.7f);
     float holeSize = 1.5f;
@@ -41,6 +42,7 @@ public class MainController : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1;
+
     }
 
     void GameStart ()
@@ -50,7 +52,9 @@ public class MainController : MonoBehaviour
         beatManager.Play();
 
         startTime = Time.time;
-	}
+
+        dropTime = timeBetweenPlatforms;
+    }
 
     void Update()
     {
@@ -67,7 +71,6 @@ public class MainController : MonoBehaviour
             return;
         }
 
-        dropTime = platformDropTimer;
         dropTime -= Time.deltaTime;
         if (dropTime <= 0f)
         {
@@ -78,7 +81,7 @@ public class MainController : MonoBehaviour
 
             spawnedPlatform.GetComponent<Rigidbody2D>().AddTorque(direction.x * 1);
 
-            dropTime = platformDropTimer;
+            dropTime = timeBetweenPlatforms;
 
             DestroyAll(GameObject.FindGameObjectsWithTag("Platform"), -10);
             DestroyAll(GameObject.FindGameObjectsWithTag("Box"), -10);
@@ -112,6 +115,7 @@ public class MainController : MonoBehaviour
         spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 2f) : -Random.Range(1.1f, 2f), 7.4f);
         spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
         spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count)];
+        Instantiate(obsticles[Random.Range(0, obsticles.Count)], spawnedBox.transform);
         Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
 
         spawnedBox.GetComponent<Rigidbody2D>().AddTorque(direction.x * 1);
@@ -133,7 +137,6 @@ public class MainController : MonoBehaviour
                 Destroy(t);
             }
         }
-
     }
 
     public void Menu()

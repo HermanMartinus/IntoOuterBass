@@ -1468,6 +1468,48 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224972266871312402, guid: e71772556dba44c7bb9b546afaca37fa,
     type: 2}
   m_PrefabInternal: {fileID: 690155387}
+--- !u!1001 &748470705
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.042
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.043
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846223154703552, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f8b0272d67cb405590fe952f680dde1, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &808967087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,9 +1874,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 821583482}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.5
+  m_MaxValue: 10
+  m_WholeNumbers: 1
+  m_Value: 4
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

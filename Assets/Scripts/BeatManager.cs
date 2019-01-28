@@ -76,7 +76,7 @@ public class BeatManager : MonoBehaviour
 
     IEnumerator jumpBeatDetected()
     {
-        yield return new WaitForSeconds(timeDifference);
+        yield return new WaitForSecondsRealtime(timeDifference);
         onJumpBeat.Invoke();
     }
 

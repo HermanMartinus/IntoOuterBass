@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseShip : MonoBehaviour {
 
-    [SerializeField] float jumpTime = 0.2f;
+    public float jumpTime = 2f;
     bool altenator = false;
     public bool testing = false;
     Rigidbody2D rb;
@@ -40,6 +40,13 @@ public class BaseShip : MonoBehaviour {
 
     public AnimationCurve jumpCurve;
 
+    public static BaseShip Instance;
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Use this for initialization
     void Start ()
     {
@@ -222,7 +229,7 @@ public class BaseShip : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Time.timeScale > 0.09f)
+        if (!spinning)
         {
             if(shieldUp)
             {

@@ -10,18 +10,17 @@ public class MainController : MonoBehaviour
     [SerializeField] GameObject bassShip;
     [SerializeField] GameObject box;
     [SerializeField] GameObject platform;
-
     [SerializeField] BeatManager beatManager;
     [SerializeField] List<Sprite> boxes;
 
     public AudioClip activeMusic;
     public float platformDropTimer = 0.2f;
-    public float beatTimeDifference = 2f;
+    float dropTime;
+
     public Vector2 holeSizeRange = new Vector2(1.3f, 0.7f);
     float holeSize = 1.5f;
     bool altenator = false;
     public float boxSpeed = 1f;
-    float clipLength;
     float startTime;
     public bool playing = false;
     public bool ended = false;
@@ -30,8 +29,11 @@ public class MainController : MonoBehaviour
     [SerializeField] GameObject leaderBoard;
     [SerializeField] GameObject gameUi;
 
+    public static MainController Instance;
+
     private void Awake()
     {
+        Instance = this;
         activeMusic = LoadedClips.Instance.selectedTrack.clip;
         beatManager.SetClip(activeMusic);
     }
@@ -48,23 +50,7 @@ public class MainController : MonoBehaviour
         beatManager.Play();
 
         startTime = Time.time;
-        clipLength = LoadedClips.Instance.selectedTrack.duration;
-
-        timeLeft = clipLength;
-        StartCoroutine("InvokeUpdateRealtime");
 	}
-
-    IEnumerator InvokeUpdateRealtime()
-    {
-
-        yield return new WaitForSecondsRealtime(1);
-        StartCoroutine("InvokeUpdateRealtime");
-
-        if (playing)
-        {
-            timeLeft -= 1;
-        }
-    }
 
     void Update()
     {
@@ -81,8 +67,9 @@ public class MainController : MonoBehaviour
             return;
         }
 
-        platformDropTimer -= Time.deltaTime;
-        if (platformDropTimer <= 0f)
+        dropTime = platformDropTimer;
+        dropTime -= Time.deltaTime;
+        if (dropTime <= 0f)
         {
             GameObject spawnedPlatform = Instantiate(platform);
             spawnedPlatform.transform.position = new Vector2(0, 7.55f);
@@ -91,13 +78,16 @@ public class MainController : MonoBehaviour
 
             spawnedPlatform.GetComponent<Rigidbody2D>().AddTorque(direction.x * 1);
 
-            platformDropTimer = 0.2f;
+            dropTime = platformDropTimer;
 
             DestroyAll(GameObject.FindGameObjectsWithTag("Platform"), -10);
             DestroyAll(GameObject.FindGameObjectsWithTag("Box"), -10);
         }
 
-        DificultyIncreaser();
+        if (!BaseShip.Instance.spinning && Time.timeScale < 1)
+        {
+            Time.timeScale = 1;
+        }
 
         if (!ended && !BeatManager.Instance.IsPlaying())
         {
@@ -144,19 +134,6 @@ public class MainController : MonoBehaviour
             }
         }
 
-    }
-
-    void DificultyIncreaser()
-    {
-        if (playing)
-        {
-            float percentageCompleted = Mathf.Abs(((timeLeft / clipLength) - 1));
-            //Time.timeScale = 1;
-            if (!bassShip.GetComponent<BaseShip>().spinning)
-                Time.timeScale = 1 + (percentageCompleted * Difficulty.difficulty);
-                
-            holeSize = holeSizeRange.x - percentageCompleted * (holeSizeRange.x - holeSizeRange.y);
-        }
     }
 
     public void Menu()

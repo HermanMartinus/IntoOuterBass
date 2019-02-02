@@ -11,6 +11,7 @@ public class Leaderboard : MonoBehaviour {
     [SerializeField] GameObject scorePrefab;
     [SerializeField] GameObject inputObject;
     [SerializeField] GameObject retryButton;
+    [SerializeField] GameObject menuButton;
 
     int points = 0;
     public bool viewing = false;
@@ -22,6 +23,7 @@ public class Leaderboard : MonoBehaviour {
             ShowLeaderboard();
             inputObject.SetActive(false);
             retryButton.SetActive(false);
+            menuButton.SetActive(true);
         }
 
         GetScore();
@@ -44,15 +46,22 @@ public class Leaderboard : MonoBehaviour {
             inputObject.transform.Find("Stats").GetComponent<Text>().text = LoadedClips.Instance.selectedTrack.title + "\n" + points.ToString("000000");
     }
 
-    public void onNameInput(string value)
+    public void InputLetter(string letter)
     {
         InputField inputField = FindObjectOfType<InputField>();
-        inputField.text = inputField.text.ToUpper();
-        if (value.Length == 3 && inputObject.activeSelf)
+        inputField.text += letter;
+        if (inputField.text.Length == 3 && inputObject.activeSelf)
         {
-            InsertScore(value);
+            InsertScore(inputField.text);
             inputObject.SetActive(false);
         }
+    }
+
+    public void RemoveLetter()
+    {
+        InputField inputField = FindObjectOfType<InputField>();
+        if(inputField.text.Length > 0)
+            inputField.text = inputField.text.Remove(inputField.text.Length-1);
     }
 
     void DisplayScores(int? scoreIndex = null)
@@ -74,6 +83,10 @@ public class Leaderboard : MonoBehaviour {
                 spawnedScore.transform.Find("Initials").GetComponent<Text>().color = Color.magenta;
             }
         }
+
+        if(!viewing)
+            retryButton.SetActive(true);
+        menuButton.SetActive(true);
     }
 
     void InsertScore(string initials) 

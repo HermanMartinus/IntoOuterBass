@@ -68,7 +68,6 @@ public class BaseShip : MonoBehaviour {
 
         t += Time.deltaTime / timeToReachTarget;
         transform.position = Vector3.Lerp(startPosition, target, Easing.Quintic.Out(t));
-        //transform.position = Vector3.Lerp(startPosition, target, jumpCurve.Evaluate(t));
 
         if (spinning)
         {

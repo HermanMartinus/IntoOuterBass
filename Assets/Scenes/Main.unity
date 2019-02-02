@@ -445,7 +445,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e6d7d7a1284db4492ac35ceabc839fb4, type: 3}
-    m_FontSize: 80
+    m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
@@ -491,6 +491,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4163953503709840, guid: 9c78584672da446b18365d16a8245769, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1.7
@@ -538,6 +543,126 @@ Prefab:
       propertyPath: lines.Array.data[3]
       value: 
       objectReference: {fileID: 1819727938}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[0].inSlope
+      value: -4.0371227
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[0].outSlope
+      value: -4.0371227
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[0].outWeight
+      value: 0.01724138
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[1].time
+      value: 0.05081116
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[1].inSlope
+      value: 1.1419436
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[1].outSlope
+      value: 1.1419436
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[1].value
+      value: -0.1231961
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[1].outWeight
+      value: 0.15555578
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[2].time
+      value: 0.32684615
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[2].value
+      value: 0.4936499
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[2].inSlope
+      value: 2.5842707
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[2].outSlope
+      value: 2.5842707
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[2].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[2].inWeight
+      value: 0.10276486
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[2].outWeight
+      value: 0.074736305
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[3].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[3].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[3].inSlope
+      value: -0.4048089
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[3].outSlope
+      value: -0.4048089
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpCurve.m_Curve.Array.data[3].inWeight
+      value: 0.06726121
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371516745994792, guid: 9c78584672da446b18365d16a8245769,
+        type: 2}
+      propertyPath: jumpTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c78584672da446b18365d16a8245769, type: 2}
   m_IsPrefabAsset: 0
@@ -759,7 +884,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 600, y: 800}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1497,7 +1622,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e6d7d7a1284db4492ac35ceabc839fb4, type: 3}
-    m_FontSize: 80
+    m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0

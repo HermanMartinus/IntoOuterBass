@@ -1454,43 +1454,9 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1827869796006928, guid: e71772556dba44c7bb9b546afaca37fa, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114349612980453278, guid: e71772556dba44c7bb9b546afaca37fa,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0.15441723
-      objectReference: {fileID: 0}
-    - target: {fileID: 114349612980453278, guid: e71772556dba44c7bb9b546afaca37fa,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.044010323
-      objectReference: {fileID: 0}
-    - target: {fileID: 114349612980453278, guid: e71772556dba44c7bb9b546afaca37fa,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.21698111
-      objectReference: {fileID: 0}
-    - target: {fileID: 114349612980453278, guid: e71772556dba44c7bb9b546afaca37fa,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0.92941177
-      objectReference: {fileID: 0}
     - target: {fileID: 1241325512171864, guid: e71772556dba44c7bb9b546afaca37fa, type: 2}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114843318696754242, guid: e71772556dba44c7bb9b546afaca37fa,
-        type: 2}
-      propertyPath: m_CellSize.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114843318696754242, guid: e71772556dba44c7bb9b546afaca37fa,
-        type: 2}
-      propertyPath: m_ChildAlignment
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e71772556dba44c7bb9b546afaca37fa, type: 2}

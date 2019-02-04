@@ -48,8 +48,8 @@ public class SearchMenu : MonoBehaviour
         }
         else
         {
-            decorationText.text = "";
-            artworkImage.sprite = null;
+            decorationText.text = "No results...";
+            artworkImage.sprite = artworkPlaceholder;
         }
 
     }
@@ -67,7 +67,7 @@ public class SearchMenu : MonoBehaviour
         string duruation = string.Format("{0:0}:{1:00}", Mathf.Floor(selectedTrack.duration / 60), selectedTrack.duration % 60);
         string artist = selectedTrack.artist != null && selectedTrack.artist.Length > 0 ? "\nArtist: " + selectedTrack.artist : "";
         string genre = selectedTrack.genre != null && selectedTrack.genre.Length > 0 ? "\nGenre: " + selectedTrack.genre : "";
-        decorationText.text = "Duration: " + duruation  + artist + genre + "\n" + selectedTrack.url;
+        decorationText.text = "Duration: " + duruation + artist + genre + "\n" + selectedTrack.url;
         if (selectedTrack.artwork_sprite == null)
         {
             artworkImage.sprite = artworkPlaceholder;

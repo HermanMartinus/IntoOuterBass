@@ -24,6 +24,8 @@ public class MusicLoader : MonoBehaviour {
 
     public static MusicLoader Instance;
 
+    public bool ConnectedToInternet = true;
+
     struct Query
     {
         public string q;
@@ -34,6 +36,28 @@ public class MusicLoader : MonoBehaviour {
     public void Awake()
     {
         Instance = this;
+        StartCoroutine(CheckInternetConnection());
+    }
+
+    public IEnumerator CheckInternetConnection()
+    {
+        yield return new WaitForEndOfFrame();
+        WWW www = new WWW("http://google.com");
+        yield return www;
+        if (www.error != null)
+        {
+            if (ConnectedToInternet)
+            {
+                ConnectedToInternet = false;
+            }
+        }
+        else
+        {
+            if (ConnectedToInternet == false)
+            {
+                ConnectedToInternet = true;
+            }
+        }
     }
 
     public void SearchForTracks(string query)

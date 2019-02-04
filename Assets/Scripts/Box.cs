@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Box : MonoBehaviour {
 
+    public List<Sprite> _platformSprites = new List<Sprite>();
     public bool platform = false;
 	// Use this for initialization
 	void Start () {
         if (platform)
         {
             BeatManager.Instance.onActualBeat.AddListener(JumpBeat);
+            GetComponent<SpriteRenderer>().sprite = _platformSprites[Random.Range(0, _platformSprites.Count)];
         }
         else
         {

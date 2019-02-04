@@ -13,6 +13,7 @@ public class MainController : MonoBehaviour
     [SerializeField] BeatManager beatManager;
     [SerializeField] List<Sprite> boxes;
     [SerializeField] List<GameObject> obsticles;
+    [SerializeField] Transform obsticleContainer;
 
     public AudioClip activeMusic;
     public float timeBetweenPlatforms = 0.2f;
@@ -74,7 +75,7 @@ public class MainController : MonoBehaviour
         dropTime -= Time.deltaTime;
         if (dropTime <= 0f)
         {
-            GameObject spawnedPlatform = Instantiate(platform);
+            GameObject spawnedPlatform = Instantiate(platform, obsticleContainer);
             spawnedPlatform.transform.position = new Vector2(0, 7.55f);
             spawnedPlatform.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
             Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
@@ -111,7 +112,7 @@ public class MainController : MonoBehaviour
     
     public void PreBeat ()
 	{
-        GameObject spawnedBox = Instantiate(box);
+        GameObject spawnedBox = Instantiate(box, obsticleContainer);
         spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 2f) : -Random.Range(1.1f, 2f), 7.4f);
         spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
         spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count)];

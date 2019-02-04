@@ -38,4 +38,9 @@ public class LoadingScreen : MonoBehaviour {
             content.SetActive(true);
         }
     }
+
+    public void ChangeText()
+    {
+        content.GetComponentInChildren<Text>().text = tips[Random.Range(0, tips.Count)];
+    }
 }

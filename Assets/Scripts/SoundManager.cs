@@ -91,10 +91,14 @@ public class SoundManager : MonoBehaviour
         Destroy(audioObject);
     }
 
-    // Play a single clip through the music source.
-    void PlayMusic(AudioClip clip)
+    public void StartMusic()
     {
-        MusicSource.clip = clip;
+        //MusicSource.clip = clip;
         MusicSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        MusicSource.Stop();
     }
 }

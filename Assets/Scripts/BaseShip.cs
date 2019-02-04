@@ -209,6 +209,7 @@ public class BaseShip : MonoBehaviour {
 
     public void Jump()
     {
+        ParticleManager.Instance.PlayJumpEffect(level, transform.position, null, 0.5f);
         t = 0;
         startPosition = transform.position;
         timeToReachTarget = jumpTime;
@@ -228,13 +229,17 @@ public class BaseShip : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        ParticleManager.Instance.PlayRandomExplosionEffect(collision.transform.position, collision.transform);
+
+        foreach (SpriteRenderer spriteRenderer in collision.transform.GetComponentsInChildren<SpriteRenderer>())
+        {
+            spriteRenderer.enabled = false;
+        }
         if (!spinning)
         {
-            if(shieldUp)
+
+            if (shieldUp)
             {
-                Instantiate(explosion, collision.transform);
-                collision.GetComponent<SpriteRenderer>().enabled = false;
-                collision.GetComponent<Collider2D>().enabled = false;
                 shieldUp = false;
             }
             else
@@ -270,9 +275,9 @@ public class BaseShip : MonoBehaviour {
 
     IEnumerator ReneableCollider()
     {
-        GetComponent<Collider2D>().enabled = false;
-        yield return new WaitForSeconds(0.5f);
-        GetComponent<Collider2D>().enabled = true;
+        //GetComponent<Collider2D>().enabled = false;
+        //yield return new WaitForSeconds(0.5f);
+        //GetComponent<Collider2D>().enabled = true;
         yield return new WaitForSeconds(1f);
         foreach(Transform junkSpeaker in GameObject.Find("speakerBin").transform)
         {

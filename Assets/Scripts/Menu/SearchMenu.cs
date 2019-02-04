@@ -25,6 +25,9 @@ public class SearchMenu : MonoBehaviour
 
     public void Search()
     {
+        if (!MusicLoader.Instance.ConnectedToInternet)
+            return;
+
         foreach (Transform child in scrollContent.transform)
         {
             Destroy(child.gameObject);
@@ -34,7 +37,7 @@ public class SearchMenu : MonoBehaviour
 
     public void UpdateMenu()
     {
-        if(LoadedClips.Instance.searchResults.Count > 0)
+        if (LoadedClips.Instance.searchResults.Count > 0)
         {
             LoadedClips.Instance.selectedTrack = LoadedClips.Instance.searchResults[0];
             SetDecorations();
@@ -56,6 +59,9 @@ public class SearchMenu : MonoBehaviour
 
     public void OnItemSelected()
     {
+        if (!MusicLoader.Instance.ConnectedToInternet)
+            return;
+
         LoadedClips.Instance.selectedTrack = LoadedClips.Instance.searchResults[ScrollViewSnapper.selectedIndex];
         SetDecorations();
         SoundManager.Instance.PlaySoundEffect("ButtonClick", volume: 0.5f);
@@ -85,6 +91,9 @@ public class SearchMenu : MonoBehaviour
 
     public void LoadSong()
     {
+        if (!MusicLoader.Instance.ConnectedToInternet)
+            return;
+
         if (LoadedClips.Instance.tracks.Find((obj) => obj.song_id == selectedTrack.song_id) == null)
             MusicLoader.Instance.FetchTrack(selectedTrack);
         else
@@ -102,5 +111,16 @@ public class SearchMenu : MonoBehaviour
     public void Leaderboard()
     {
         leaderboard.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (!MusicLoader.Instance.ConnectedToInternet)
+        {
+            decorationText.text = "No internet connection...";
+        } else if(decorationText.text == "No internet connection...")
+        {
+            decorationText.text = "Reconnected...";
+        }
     }
 }

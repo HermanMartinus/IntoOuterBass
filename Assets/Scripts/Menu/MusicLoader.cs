@@ -58,6 +58,8 @@ public class MusicLoader : MonoBehaviour {
                 ConnectedToInternet = true;
             }
         }
+        yield return new WaitForSeconds(5);
+        StartCoroutine(CheckInternetConnection());
     }
 
     public void SearchForTracks(string query)

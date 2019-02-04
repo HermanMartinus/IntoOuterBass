@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1963998953956416}
+  m_IsPrefabAsset: 1
+--- !u!1 &1963998953956416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4163335941704320}
+  - component: {fileID: 114757665862492834}
+  m_Layer: 0
+  m_Name: ParticleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4163335941704320
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963998953956416}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114757665862492834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963998953956416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab8c6467dead4193acae9ac796160ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosions:
+  - {fileID: 100004, guid: 9d65c4a56112b40b8a4df1b7d323784a, type: 2}
+  - {fileID: 100004, guid: 196a5762c28fa4f1c859edd9e318c446, type: 2}
+  - {fileID: 100010, guid: 8ac9fa6dca66340948c2c250a602c2da, type: 2}
+  - {fileID: 100006, guid: 29765becb441c4b848a3e0765b241b6d, type: 2}
+  - {fileID: 100004, guid: 352bfe72ccda8443dacb88991f4e44f5, type: 2}
+  - {fileID: 100000, guid: 2be21e69b402145ab8a1344f1e831300, type: 2}
+  _jumps:
+  - {fileID: 100008, guid: c75341d526361427fb2e5f56a071488f, type: 2}
+  - {fileID: 100002, guid: a09b24f2716bb4945ab7abe24373b244, type: 2}
+  - {fileID: 100006, guid: 42a7dfa8a8c8b4919aad70d51ea13f1d, type: 2}
+  - {fileID: 100004, guid: abc56df275e27458d82981111d7ea930, type: 2}
+  - {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
+  - {fileID: 100004, guid: 90c34109dd0c24a2f8158822d93242c3, type: 2}
+  _sustained: []

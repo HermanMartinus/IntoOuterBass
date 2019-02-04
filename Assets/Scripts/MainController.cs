@@ -48,6 +48,7 @@ public class MainController : MonoBehaviour
 
     void GameStart ()
 	{
+        SoundManager.Instance.StopMusic();
         playing = true;
 
         beatManager.Play();
@@ -115,7 +116,6 @@ public class MainController : MonoBehaviour
         GameObject spawnedBox = Instantiate(box, obsticleContainer);
         spawnedBox.transform.position = new Vector2(altenator ? Random.Range(1.1f, 2f) : -Random.Range(1.1f, 2f), 7.4f);
         spawnedBox.GetComponent<Rigidbody2D>().velocity = Vector2.down * boxSpeed;
-        spawnedBox.GetComponent<SpriteRenderer>().sprite = boxes[Random.Range(0, boxes.Count)];
         Instantiate(obsticles[Random.Range(0, obsticles.Count)], spawnedBox.transform);
         Vector2 direction = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
 
@@ -149,7 +149,8 @@ public class MainController : MonoBehaviour
     {
         playing = false;
         ended = true;
-        ShowLeaderBoard(); 
+        ShowLeaderBoard();
+        SoundManager.Instance.StartMusic();
     }
 
     void ShowLeaderBoard()

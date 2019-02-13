@@ -24,7 +24,6 @@ public class BaseShip : MonoBehaviour {
     float shieldTime = 0f;
     public List<float> speedSteps = new List<float>();
     public int level = 0;
-    [SerializeField] GameObject explosion;
     [SerializeField] Transform speakers;
     public bool ended = false;
     public bool upgrading = false;

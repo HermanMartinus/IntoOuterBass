@@ -43,4 +43,10 @@ public class LoadingScreen : MonoBehaviour {
     {
         content.GetComponentInChildren<Text>().text = tips[Random.Range(0, tips.Count)];
     }
+
+    public void Cancel()
+    {
+        content.SetActive(false);
+        MusicLoader.Instance.StopAllCoroutines();
+    }
 }

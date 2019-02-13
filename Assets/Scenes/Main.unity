@@ -447,11 +447,11 @@ RectTransform:
   m_Father: {fileID: 1980459204}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.1, y: -50}
-  m_SizeDelta: {x: 242.6, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -30, y: 0}
+  m_SizeDelta: {x: 242.59998, y: 100}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &433267683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,8 +477,8 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 80
-    m_Alignment: 0
+    m_MaxSize: 130
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -840,8 +840,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ecbf3829ecd134ea38049f892338e208, type: 3}
   - {fileID: 21300000, guid: 744b6890de60746f0a5b23eee9dee130, type: 3}
   obsticles:
+  - {fileID: 1858339294892090, guid: 2acbbd38576284a3d86d03d1f903b81d, type: 2}
+  - {fileID: 1780351114894966, guid: 963a4322bb0854b6c9e7b9be0103bb7e, type: 2}
   - {fileID: 1660353261280148, guid: abdfe9e08b50f4b6db07bef928ef09cf, type: 2}
   - {fileID: 1515756087099446, guid: 3d039dde7cb684139872195a7f9a4586, type: 2}
+  - {fileID: 1149520849032358, guid: 856bf7295b17a49a497bd3d7ee239338, type: 2}
+  - {fileID: 1742043305651842, guid: 2a16250b2e2df4b26a8eb656c6456d52, type: 2}
+  - {fileID: 1722957925316970, guid: 7f59e53749a61455191501a1844b0fd5, type: 2}
   obsticleContainer: {fileID: 21180712}
   activeMusic: {fileID: 8300000, guid: ca4753e4d64e1410bbd7757bd744e89a, type: 3}
   timeBetweenPlatforms: 0.2
@@ -1417,6 +1422,7 @@ GameObject:
   - component: {fileID: 918161042}
   - component: {fileID: 918161044}
   - component: {fileID: 918161043}
+  - component: {fileID: 918161045}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -1438,11 +1444,11 @@ RectTransform:
   m_Father: {fileID: 1980459204}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -90.00003, y: -50}
-  m_SizeDelta: {x: 152.74, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &918161043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1478,7 +1484,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 918161045}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1502,6 +1508,33 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 918161041}
   m_CullTransparentMesh: 0
+--- !u!114 &918161045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 918161041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!1 &1001923944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1919584769453260, guid: 9c78584672da446b18365d16a8245769,
@@ -1768,18 +1801,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e6d7d7a1284db4492ac35ceabc839fb4, type: 3}
-    m_FontSize: 60
-    m_FontStyle: 1
+    m_FontSize: 130
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 245
-    m_Alignment: 2
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Menu
+  m_Text: <
 --- !u!222 &1499617216
 CanvasRenderer:
   m_ObjectHideFlags: 0

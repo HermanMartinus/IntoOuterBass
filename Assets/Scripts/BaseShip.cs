@@ -171,7 +171,7 @@ public class BaseShip : MonoBehaviour {
     void InputManager()
     {
 
-        if (Input.GetMouseButtonDown(0) && !ended)
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.J) && !ended)
         {
             testing = false;
             Jump();

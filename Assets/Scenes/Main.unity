@@ -860,13 +860,30 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ecbf3829ecd134ea38049f892338e208, type: 3}
   - {fileID: 21300000, guid: 744b6890de60746f0a5b23eee9dee130, type: 3}
   obsticles:
+  - {fileID: 3158271588594220164, guid: c5540aea44fa74ee9a42f1c8fc9c82b3, type: 3}
+  - {fileID: 7865917716434275542, guid: 764b1e960a73b41d58f86b87705756a0, type: 3}
+  - {fileID: 1283325708061623111, guid: c22f4bd2fdb3a428a954646ba48509d1, type: 3}
+  - {fileID: 6503820310570417937, guid: 344d671f8748345d69919f3c05e5bd33, type: 3}
   - {fileID: 1858339294892090, guid: 2acbbd38576284a3d86d03d1f903b81d, type: 3}
+  - {fileID: 6371171655337481425, guid: b87ab1b594868462f9594c787cc46a71, type: 3}
   - {fileID: 1780351114894966, guid: 963a4322bb0854b6c9e7b9be0103bb7e, type: 3}
   - {fileID: 1660353261280148, guid: abdfe9e08b50f4b6db07bef928ef09cf, type: 3}
+  - {fileID: 391632428397064155, guid: dd5edcdcf548149f89eba2b9053b36c3, type: 3}
+  - {fileID: 2425965151242853823, guid: 9826be0997417467fb591d379046109d, type: 3}
   - {fileID: 1515756087099446, guid: 3d039dde7cb684139872195a7f9a4586, type: 3}
+  - {fileID: 3871814879323400105, guid: 17ebd168b16c74a40bdb3615f5ff68bf, type: 3}
+  - {fileID: 8514783876250980926, guid: dc6aa7d69209c4200addc95e9fffc4e6, type: 3}
+  - {fileID: 7286568692873857127, guid: d3f0186380aa84b38acbdd10ebfcccc4, type: 3}
+  - {fileID: 5721596324292756093, guid: eb38e79d04e7748a69b25824bf86ebf6, type: 3}
+  - {fileID: 2349248740058776851, guid: 5ff9825e6ff4e4be593ee729d4b68cae, type: 3}
+  - {fileID: 4235029793550851359, guid: 78a74c7745d1f49358c38e10c9e7d02d, type: 3}
   - {fileID: 1149520849032358, guid: 856bf7295b17a49a497bd3d7ee239338, type: 3}
+  - {fileID: 4215649678827102111, guid: 4500efecad53340329c8f70a0e38965d, type: 3}
   - {fileID: 1742043305651842, guid: 2a16250b2e2df4b26a8eb656c6456d52, type: 3}
+  - {fileID: 5150757808345885956, guid: 34eebbb33d8854269b5e82cae77ef43c, type: 3}
   - {fileID: 1722957925316970, guid: 7f59e53749a61455191501a1844b0fd5, type: 3}
+  - {fileID: 5869629773288954214, guid: 270ac6e2e25404f36b8434e3d757e6c5, type: 3}
+  - {fileID: 6183160426314701309, guid: 086ca4525aa1b4882a786c0376355ff7, type: 3}
   obsticleContainer: {fileID: 21180712}
   activeMusic: {fileID: 8300000, guid: ca4753e4d64e1410bbd7757bd744e89a, type: 3}
   timeBetweenPlatforms: 0.2

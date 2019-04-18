@@ -114,4 +114,9 @@ public class BetterMenu : MonoBehaviour
     {
         leaderBoard.SetActive(true);
     }
+
+    public void OnInputChange()
+    {
+        SoundManager.Instance.PlaySoundEffect("Blop", volume: 0.5f);
+    }
 }

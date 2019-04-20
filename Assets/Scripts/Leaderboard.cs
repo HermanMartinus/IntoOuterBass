@@ -12,6 +12,7 @@ public class Leaderboard : MonoBehaviour {
     [SerializeField] GameObject inputObject;
     [SerializeField] GameObject retryButton;
     [SerializeField] GameObject menuButton;
+    [SerializeField] GameObject submitButton;
 
     int points = 0;
     public bool viewing = false;
@@ -24,6 +25,7 @@ public class Leaderboard : MonoBehaviour {
             inputObject.SetActive(false);
             retryButton.SetActive(false);
             menuButton.SetActive(true);
+            submitButton.SetActive(false);
         }
 
         GetScore();
@@ -50,10 +52,16 @@ public class Leaderboard : MonoBehaviour {
     {
         InputField inputField = FindObjectOfType<InputField>();
         inputField.text += letter;
+    }
+
+    public void Submit()
+    {
+        InputField inputField = FindObjectOfType<InputField>();
         if (inputField.text.Length == 3 && inputObject.activeSelf)
         {
             InsertScore(inputField.text);
             inputObject.SetActive(false);
+            submitButton.SetActive(false);
         }
     }
 

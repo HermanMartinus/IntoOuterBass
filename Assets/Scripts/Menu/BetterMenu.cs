@@ -12,6 +12,7 @@ public class BetterMenu : MonoBehaviour
     public GameObject leaderBoard;
 
     static bool loadedDaftPunk = false;
+    public List<string> artists = new List<string>();
 
     void Start()
     {
@@ -46,13 +47,12 @@ public class BetterMenu : MonoBehaviour
                 spawnedButton.GetComponentsInChildren<Text>()[1].text = "Duration: " + duruation + artist + genre;
 
                 spawnedButton.transform.Find("Play").GetComponent<Button>().onClick.AddListener(() => LoadTrack(track));
-                spawnedButton.transform.Find("Score").GetComponent<Button>().onClick.AddListener(() => Leaderboard());
+                spawnedButton.transform.Find("Score").GetComponent<Button>().onClick.AddListener(() => Leaderboard(track));
             }
             SetArtwork();
-            Invoke("SetArtwork", 1);
-            Invoke("SetArtwork", 3);
-            Invoke("SetArtwork", 5);
-            Invoke("SetArtwork", 10);
+            for (int i=1; i<11; i++)
+                Invoke("SetArtwork", i);
+
         }
         else
         {
@@ -70,7 +70,7 @@ public class BetterMenu : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        MusicLoader.Instance.SearchForTracks(searchInput.text == "" ? "Daft Punk" : searchInput.text);
+        MusicLoader.Instance.SearchForTracks(searchInput.text == "" ? artists[Random.Range(0,artists.Count)] : searchInput.text);
     }
 
     void SetArtwork()
@@ -110,8 +110,9 @@ public class BetterMenu : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
-    public void Leaderboard()
+    public void Leaderboard(Track track)
     {
+        LoadedClips.Instance.selectedTrack = track;
         leaderBoard.SetActive(true);
     }
 

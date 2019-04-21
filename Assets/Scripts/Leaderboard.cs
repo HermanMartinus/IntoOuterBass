@@ -162,7 +162,7 @@ public class Leaderboard : MonoBehaviour {
         }
         else
         {
-            SceneManager.LoadScene("SearchMenu");
+            SceneManager.LoadScene("Donate");
         }
     }
 

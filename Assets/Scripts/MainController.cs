@@ -229,7 +229,7 @@ public class MainController : MonoBehaviour
     IEnumerator MessageSequence()
     {
         hermansText.gameObject.SetActive(true);
-
+        GameObject.Find("InsertCoin").SetActive(false);
         Text message = hermansText.GetComponent<Text>();
         yield return new WaitForSeconds(2.7f);
         message.text = "Into Outer Bass";
@@ -237,8 +237,10 @@ public class MainController : MonoBehaviour
         message.text = "";
         yield return new WaitForSeconds(10);
         message.text = "a game by Herman Martinus";
+        yield return new WaitForSeconds(2);
+
         started = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         message.text = "";
 
     }

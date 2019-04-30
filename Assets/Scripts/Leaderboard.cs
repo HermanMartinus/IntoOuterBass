@@ -44,7 +44,7 @@ public class Leaderboard : MonoBehaviour {
 
     public void PopulateStats (int points)
     {
-        if(! viewing)
+        if(! viewing && !MainController.simplified)
             inputObject.transform.Find("Stats").GetComponent<Text>().text = LoadedClips.Instance.selectedTrack.title + "\n" + points.ToString("000000");
     }
 

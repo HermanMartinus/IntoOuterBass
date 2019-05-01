@@ -173,6 +173,7 @@ public class MainController : MonoBehaviour
             foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
             {
                 audioSource.pitch = 1;
+           
             }
         }
         UpdateLives();
@@ -292,7 +293,7 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(4);
         message.text = "Guess your journey ends here...";
         yield return new WaitForSeconds(4);
-        message.text = "Fret not!";
+        message.text = "You made it " + Mathf.Abs((startTime - Time.time)/32).ToString("00") + "% of the way...";
         yield return new WaitForSeconds(4);
         message.text = "You can always try again!";
         patreonButton.SetActive(true);

@@ -1924,14 +1924,14 @@ MonoBehaviour:
   - {fileID: 5869629773288954214, guid: 270ac6e2e25404f36b8434e3d757e6c5, type: 3}
   - {fileID: 6183160426314701309, guid: 086ca4525aa1b4882a786c0376355ff7, type: 3}
   obsticleContainer: {fileID: 522790262}
-  activeMusic: {fileID: 8300000, guid: 77c36e3a80fff4efba6fc96bcc8894bc, type: 3}
+  activeMusic: {fileID: 8300000, guid: f0eaa217f736645e8a547fd2c5098d96, type: 3}
   timeBetweenPlatforms: 0.2
   holeSizeRange: {x: 1.3, y: 1.1}
   boxSpeed: 3
   playing: 0
   ended: 0
   _simplified: 1
-  lives: 3
+  lives: 5
   lifeContainer: {fileID: 1412497493}
   lifeSprite: {fileID: 21300000, guid: c5d162851cba8450b8023ba8a755a188, type: 3}
   patreonButton: {fileID: 168146062}
@@ -1951,7 +1951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bab17483147a45c5b20c9ae2298ecdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifier: 5
+  modifier: 4
 --- !u!4 &1841200001
 Transform:
   m_ObjectHideFlags: 0
